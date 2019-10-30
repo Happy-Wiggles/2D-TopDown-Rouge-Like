@@ -115,7 +115,7 @@ public class RoomController : MonoBehaviour
         currentLoadRoomInfo = loadRoomQueue.Dequeue();
         isLoadingRoom = true;
 
-        StartCoroutine(loadRoomRoutine(currentLoadRoomInfo));
+        //StartCoroutine(loadRoomRoutine(currentLoadRoomInfo));
 
     }
 }
