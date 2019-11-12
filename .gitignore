@@ -10,6 +10,13 @@
 /[Ll]ogs/
 /[Mm]emoryCaptures/
 
+#Files to be ignored (By Justin)
+Library/
+Temp/
+Obj/
+Build/
+Logs/
+
 # Never ignore Asset meta data
 !/[Aa]ssets/**/*.meta
 
