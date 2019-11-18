@@ -7,19 +7,24 @@ public class Room : MonoBehaviour
     public string name;
     public int X;
     public int Y;
-
-    public int Width = 19;
-    public int Height = 19;
+    
+    public int Width = 20;
+    public int Height = 20;
 
     // Start is called before the first frame update
     void Start()
     {
-                
+        if(RoomController.instance == null)
+        {
+            return;
+        }
+
+        RoomController.instance.RegisterRoom(this);
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnDrawGizmos()
     {
-        
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(transform.position, new Vector3(Width,Height,0));
     }
 }

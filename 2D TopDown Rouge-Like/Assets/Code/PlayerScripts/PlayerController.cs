@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -39,5 +39,29 @@ public class PlayerController : MonoBehaviour
         }
         
         animator.SetBool("IsMoving", isMoving);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "DoorN")
+        {
+            Debug.Log(collision.tag);
+            RigidBody.position = new Vector3(RigidBody.position.x, RigidBody.position.y, +6);
+        }
+        if (collision.tag == "DoorE")
+        {
+            Debug.Log(collision.tag);
+            RigidBody.position = new Vector3(RigidBody.position.x+6, RigidBody.position.y, 0);
+        }
+        if (collision.tag == "DoorS")
+        {
+            Debug.Log(collision.tag);
+            RigidBody.position = new Vector3(RigidBody.position.x, RigidBody.position.y, -6);
+        }
+        if (collision.tag == "DoorW")
+        {
+            Debug.Log(collision.tag);
+            RigidBody.position = new Vector3(RigidBody.position.x - 6, RigidBody.position.y, 0);
+        }
     }
 }

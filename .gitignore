@@ -15,7 +15,7 @@
 #Directories with files
 Library/
 Temp/
-Obj/
+obj/Debug/
 Build/
 Logs/
 Packages/
