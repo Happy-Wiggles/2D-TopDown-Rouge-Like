@@ -11,11 +11,17 @@
 /[Mm]emoryCaptures/
 
 #Files to be ignored (By Justin)
+
+#Directories with files
 Library/
 Temp/
 Obj/
 Build/
 Logs/
+Packages/
+
+#Single files
+packages.config
 
 # Never ignore Asset meta data
 !/[Aa]ssets/**/*.meta

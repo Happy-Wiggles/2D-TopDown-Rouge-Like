@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     public Animator animator;
     public float Speed = 5;
-    Rigidbody2D RigidBody;
+    Rigidbody2D PlayerRigidBody;
     public Text CollectedText;
     public static int CollectedAmount = 0;
     private bool isMoving = false;
@@ -15,7 +15,8 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        RigidBody = GetComponent<Rigidbody2D>();
+        PlayerRigidBody = GetComponent<Rigidbody2D>();
+        PlayerRigidBody.freezeRotation = true;
         CollectedText = gameObject.AddComponent<Text>();
     }
 
@@ -25,10 +26,10 @@ public class PlayerController : MonoBehaviour
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
         
-        RigidBody.velocity = new Vector3(horizontal * Speed, vertical * Speed, 0);
+        PlayerRigidBody.velocity = new Vector3(horizontal * Speed, vertical * Speed, 0);
         CollectedText.text = "Number of collected items: " + CollectedAmount;
 
-        if (!(RigidBody.velocity.x == 0 && RigidBody.velocity.y == 0))
+        if (!(PlayerRigidBody.velocity.x == 0 && PlayerRigidBody.velocity.y == 0))
         {
             isMoving = true;
         }
