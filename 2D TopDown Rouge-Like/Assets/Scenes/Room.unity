@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 196364383}
   m_Layer: 0
   m_Name: Wall_Right
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -229,9 +229,11 @@ GameObject:
   - component: {fileID: 307755277}
   - component: {fileID: 307755276}
   - component: {fileID: 307755275}
+  - component: {fileID: 307755279}
+  - component: {fileID: 307755278}
   m_Layer: 0
   m_Name: Room
-  m_TagString: Untagged
+  m_TagString: Room
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -323,6 +325,43 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &307755278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 307755274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81d999aed0da95a4bbca1b0c54d00913, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  room: {fileID: 0}
+  grid:
+    collumns: 0
+    rows: 0
+    verticalOffset: 0
+    horizontalOffset: 0
+  gridTile: {fileID: 1768775391259268073, guid: dab80e1ce0203c1448aa203eded95765,
+    type: 3}
+  availablePoints: []
+--- !u!114 &307755279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 307755274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9da136b12ee781b4e81f0e7ab497225b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grid: {fileID: 307755278}
+  thingsToSpawn:
+  - name: ChaseEnemies
+    spawnerData: {fileID: 11400000, guid: 3d8b55b9a7817b540a4337071bdf6847, type: 2}
 --- !u!1 &390906243
 GameObject:
   m_ObjectHideFlags: 0
@@ -654,7 +693,7 @@ GameObject:
   - component: {fileID: 779791780}
   m_Layer: 0
   m_Name: Wall_Left
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -761,7 +800,7 @@ GameObject:
   - component: {fileID: 1932310922}
   m_Layer: 0
   m_Name: Wall_Top
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -893,7 +932,7 @@ GameObject:
   - component: {fileID: 1986881188}
   m_Layer: 0
   m_Name: Wall_Bottom
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

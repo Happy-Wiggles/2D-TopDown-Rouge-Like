@@ -15,11 +15,6 @@ public class ObjectToRoomSpawner : MonoBehaviour
 
     public RandomSpawner[] thingsToSpawn;
 
-    private void Start()
-    {
-        //grid = GetComponentInChildren<GridController>();
-    }
-
     public void InitializeObjectSpawning()
     {
         foreach (RandomSpawner objectToSpawn in thingsToSpawn)

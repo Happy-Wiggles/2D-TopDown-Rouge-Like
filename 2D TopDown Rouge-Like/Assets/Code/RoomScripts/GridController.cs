@@ -29,8 +29,6 @@ public class GridController : MonoBehaviour
         grid.verticalOffset = 8;
         grid.horizontalOffset = 8;
 
-        gridTile.SetActive(false);
-
         GenerateGrid();
     }
 
@@ -43,13 +41,20 @@ public class GridController : MonoBehaviour
         {
             for (var x = 0; x <= grid.collumns; x++)
             {
-                GameObject gameObject = Instantiate(gridTile, transform);
-                gameObject.transform.position = new Vector2(x - (grid.collumns - grid.horizontalOffset), y - (grid.rows - grid.verticalOffset));
-                gameObject.name = "X: " + x + ", Y: " + y;
-                availablePoints.Add(gameObject.transform.position);
+                GameObject gridTileGo = Instantiate(gridTile, transform) as GameObject;
+                gridTileGo.transform.position = new Vector2(x - (grid.collumns - grid.horizontalOffset), y - (grid.rows - grid.verticalOffset));
+                gridTileGo.name = "X: " + x + ", Y: " + y;
+                availablePoints.Add(gridTileGo.transform.position);
             }
         }
-
-        GetComponentInParent<ObjectToRoomSpawner>().InitializeObjectSpawning();
+        if (GetComponentInParent<ObjectToRoomSpawner>() != null)
+        {
+            GetComponentInParent<ObjectToRoomSpawner>().InitializeObjectSpawning();
+        }
+        else
+        {
+            Debug.Log("ObjectToRoomSpawner was null");
+        }
+        
     }
 }

@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     public Text CollectedText;
     public static int CollectedAmount = 0;
     private bool isMoving = false;
+    private bool isMovingRight = false;
+    private bool isMovingLeft = false;
 
     // Start is called before the first frame update
     void Start()
@@ -29,13 +31,25 @@ public class PlayerController : MonoBehaviour
         PlayerRigidBody.velocity = new Vector3(horizontal * Speed, vertical * Speed, 0);
         CollectedText.text = "Number of collected items: " + CollectedAmount;
 
-        if (!(PlayerRigidBody.velocity.x == 0 && PlayerRigidBody.velocity.y == 0))
+        if (!(PlayerRigidBody.velocity.x == 0 && PlayerRigidBody.velocity.y == 0)) //Check if player is moving
         {
             isMoving = true;
+            if (PlayerRigidBody.velocity.x > 0) //Check if player moving right
+            {
+                isMovingRight = true;
+                isMovingLeft = false;
+            }
+            if (PlayerRigidBody.velocity.x < 0) //Check if player moving left
+            {
+                isMovingRight = false;
+                isMovingLeft = true;
+            }
         }
         else
         {
             isMoving = false;
+            isMovingRight = false;
+            isMovingLeft = false;
         }
         
         animator.SetBool("IsMoving", isMoving);
@@ -46,22 +60,22 @@ public class PlayerController : MonoBehaviour
         if (collision.tag == "DoorN")
         {
             Debug.Log(collision.tag);
-            RigidBody.position = new Vector3(RigidBody.position.x, RigidBody.position.y, +6);
+            PlayerRigidBody.position = new Vector3(PlayerRigidBody.position.x, PlayerRigidBody.position.y, +6);
         }
         if (collision.tag == "DoorE")
         {
             Debug.Log(collision.tag);
-            RigidBody.position = new Vector3(RigidBody.position.x+6, RigidBody.position.y, 0);
+            PlayerRigidBody.position = new Vector3(PlayerRigidBody.position.x+6, PlayerRigidBody.position.y, 0);
         }
         if (collision.tag == "DoorS")
         {
             Debug.Log(collision.tag);
-            RigidBody.position = new Vector3(RigidBody.position.x, RigidBody.position.y, -6);
+            PlayerRigidBody.position = new Vector3(PlayerRigidBody.position.x, PlayerRigidBody.position.y, -6);
         }
         if (collision.tag == "DoorW")
         {
             Debug.Log(collision.tag);
-            RigidBody.position = new Vector3(RigidBody.position.x - 6, RigidBody.position.y, 0);
+            PlayerRigidBody.position = new Vector3(PlayerRigidBody.position.x - 6, PlayerRigidBody.position.y, 0);
         }
     }
 }
