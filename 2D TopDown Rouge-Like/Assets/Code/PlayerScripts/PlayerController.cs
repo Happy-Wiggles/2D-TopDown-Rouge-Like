@@ -53,6 +53,9 @@ public class PlayerController : MonoBehaviour
         }
         
         animator.SetBool("IsMoving", isMoving);
+        animator.SetBool("IsMovingRight", isMovingRight);
+        animator.SetBool("IsMovingLeft", isMovingLeft);
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
