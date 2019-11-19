@@ -32,7 +32,7 @@ public class ObjectToRoomSpawner : MonoBehaviour
             int randomPos = Random.Range(0, grid.availablePoints.Count - 1);
             GameObject go = Instantiate(data.spawnerData.itemToSpawn, grid.availablePoints[randomPos], Quaternion.identity, transform) as GameObject;
             grid.availablePoints.RemoveAt(randomPos);
-            Debug.Log("Spawned object: " + go.name);
+            
         }
     }
 }

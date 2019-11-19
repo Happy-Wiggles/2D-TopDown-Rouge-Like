@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviour
         if (collision.tag == "DoorN")
         {
             Debug.Log(collision.tag);
-            PlayerRigidBody.position = new Vector3(PlayerRigidBody.position.x, PlayerRigidBody.position.y, +6);
+            PlayerRigidBody.position = new Vector3(PlayerRigidBody.position.x, PlayerRigidBody.position.y +6);
         }
         if (collision.tag == "DoorE")
         {
@@ -73,7 +73,7 @@ public class PlayerController : MonoBehaviour
         if (collision.tag == "DoorS")
         {
             Debug.Log(collision.tag);
-            PlayerRigidBody.position = new Vector3(PlayerRigidBody.position.x, PlayerRigidBody.position.y, -6);
+            PlayerRigidBody.position = new Vector3(PlayerRigidBody.position.x, PlayerRigidBody.position.y -6);
         }
         if (collision.tag == "DoorW")
         {

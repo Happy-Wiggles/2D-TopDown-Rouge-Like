@@ -11,19 +11,29 @@ public class RoomInfo{
     public bool DoorE;
     public bool DoorS;
     public bool DoorW;
+
+    public RoomInfo() { }
+    public RoomInfo(string name, int X, int Y, bool DoorN, bool DoorE, bool DoorS, bool DoorW)
+    {
+        this.name = name;
+        this.X = X;
+        this.Y = Y;
+        this.DoorN = DoorN;
+        this.DoorE = DoorE;
+        this.DoorS = DoorS;
+        this.DoorW = DoorW;
+    }
 }
 
 public class RoomController : MonoBehaviour
 {
+    List<RoomInfo> Generated=new List<RoomInfo>();
     public static RoomController instance;
-
-    List<Room> Rooms = new List<Room>();
-
     Queue<RoomInfo> loadRoomQueue = new Queue<RoomInfo>();
-    
+    RoomInfo currentLoadRoomInfo = new RoomInfo();
     List<Room> loadedRooms = new List<Room>();
 
-    RoomInfo currentLoadRoomInfo = new RoomInfo();
+    
 
     bool isLoadingRoom=false;
 
@@ -34,9 +44,14 @@ public class RoomController : MonoBehaviour
 
     void Start()
     {
-        LoadRoom("Hub", 0, 0, false, true, false, true);
-        LoadRoom("Room", 1, 0,false,true,false,true);
-        LoadRoom("Room", 0, 1, false, true, false, true);
+        RandomGen Roomgeneration = new RandomGen();
+        Generated = Roomgeneration.getLevel(20,3,3);
+
+        foreach(RoomInfo a in Generated)
+        {
+            LoadRoom(a);
+        }
+
     }
 
     bool RoomExists(int x, int y)
@@ -52,22 +67,12 @@ public class RoomController : MonoBehaviour
         return false;
     }
 
-    public void LoadRoom(string name, int x, int y, bool N, bool E, bool S, bool W)
+    public void LoadRoom(RoomInfo roomInfo)
     {
-        if (RoomExists(x, y))
+        if (RoomExists(roomInfo.X, roomInfo.Y))
         {
             return;
         }
-
-        RoomInfo roomInfo = new RoomInfo();
-        roomInfo.name = name;
-        roomInfo.X = x;
-        roomInfo.Y = y;
-        roomInfo.DoorN = N;
-        roomInfo.DoorE = E;
-        roomInfo.DoorS = S;
-        roomInfo.DoorW = W;
-        Debug.Log(E);
         loadRoomQueue.Enqueue(roomInfo);
         
     }
