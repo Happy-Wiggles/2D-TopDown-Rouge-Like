@@ -16,7 +16,7 @@ public class GridController : MonoBehaviour
     }
 
     public Grid grid;
-    
+
     public GameObject gridTile;
 
     public List<Vector2> availablePoints = new List<Vector2>();
@@ -41,7 +41,7 @@ public class GridController : MonoBehaviour
         {
             for (var x = 0; x <= grid.collumns; x++)
             {
-                GameObject gridTileGo = Instantiate(gridTile, transform) as GameObject;
+                GameObject gridTileGo = Instantiate(gridTile, transform);
                 gridTileGo.transform.position = new Vector2(x - (grid.collumns - grid.horizontalOffset), y - (grid.rows - grid.verticalOffset));
                 gridTileGo.name = "X: " + x + ", Y: " + y;
                 availablePoints.Add(gridTileGo.transform.position);
@@ -55,6 +55,6 @@ public class GridController : MonoBehaviour
         {
             Debug.Log("ObjectToRoomSpawner was null");
         }
-        
+
     }
 }

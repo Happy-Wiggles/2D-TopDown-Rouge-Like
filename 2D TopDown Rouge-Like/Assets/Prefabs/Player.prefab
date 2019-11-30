@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6581027517958395031}
   - component: {fileID: 6581027517958395030}
   - component: {fileID: 6581027517958395027}
+  - component: {fileID: 6421580369855482687}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -29,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6581027517958395049}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.09, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -71,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 0c85884db5b77eb4094db5c58af22cc6, type: 3}
   m_Color: {r: 0.9716981, g: 0.7524287, b: 0.34376112, a: 1}
   m_FlipX: 0
@@ -97,7 +98,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0
+  m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -143,8 +144,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 6581027517958395027}
-  Speed: 5
-  CollectedText: {fileID: 0}
+  Speed: 8.5
+  HealthText: {fileID: 0}
+  weapon: {fileID: 6421580369855482687}
 --- !u!95 &6581027517958395027
 Animator:
   serializedVersion: 3
@@ -164,3 +166,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &6421580369855482687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6581027517958395049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e1ee3b4282122046ba80b38a2253e78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BulletPrefab: {fileID: 609819287434706814, guid: 671067618448319408eca0a4288800af,
+    type: 3}
+  bulletSpeed: 12
+  lastFire: 0
+  fireRate: 0.5

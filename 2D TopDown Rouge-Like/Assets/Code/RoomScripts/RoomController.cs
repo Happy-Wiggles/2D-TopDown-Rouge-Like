@@ -45,7 +45,7 @@ public class RoomController : MonoBehaviour
     void Start()
     {
         RandomGen Roomgeneration = new RandomGen();
-        Generated = Roomgeneration.getLevelExtreme(200,8);
+        Generated = Roomgeneration.getLevelExtreme(12,8);
 
         foreach(RoomInfo a in Generated)
         {

@@ -7,6 +7,8 @@ TagManager:
   - Room
   - Wall
   - Ground
+  - Bullet
+  - Enemy
   layers:
   - Default
   - TransparentFX
