@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Room : MonoBehaviour
 {
-    public string name;
+    public string roomName;
     public int X;
     public int Y;
     
-    public int Width = 20;
-    public int Height = 20;
+    public int Width = 19;
+    public int Height = 19;
 
     // Start is called before the first frame update
     void Start()
@@ -26,5 +26,18 @@ public class Room : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(transform.position, new Vector3(Width,Height,0));
+    }
+
+    public Vector3 GetRoomCenter()
+    {
+        return new Vector3(X * Width, Y * Height);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            RoomController.instance.OnPlayerEnterRoom(this);
+        }
     }
 }

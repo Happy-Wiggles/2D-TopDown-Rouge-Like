@@ -33,7 +33,7 @@ public class RoomController : MonoBehaviour
     RoomInfo currentLoadRoomInfo = new RoomInfo();
     List<Room> loadedRooms = new List<Room>();
 
-    
+    Room currRoom;
 
     bool isLoadingRoom=false;
 
@@ -47,9 +47,9 @@ public class RoomController : MonoBehaviour
         RandomGen Roomgeneration = new RandomGen();
         Generated = Roomgeneration.getLevelExtreme(12,8);
 
-        foreach(RoomInfo a in Generated)
+        foreach(RoomInfo newRoom in Generated)
         {
-            LoadRoom(a);
+            LoadRoom(newRoom);
         }
 
     }
@@ -121,7 +121,7 @@ public class RoomController : MonoBehaviour
 
         room.X = currentLoadRoomInfo.X;
         room.Y = currentLoadRoomInfo.Y;
-        room.name = currentLoadRoomInfo.name;
+        room.roomName = currentLoadRoomInfo.name;
 
         room.transform.parent = transform;
 
@@ -144,11 +144,18 @@ public class RoomController : MonoBehaviour
 
         isLoadingRoom = false;
 
+        if (loadedRooms.Count == 0)
+        {
+            CameraController.instance.currRoom = room;
+        }
+
         loadedRooms.Add(room);
     }
 
-
-
-
-
+    public void OnPlayerEnterRoom(Room room)
+    {
+        Debug.Log($"Entered Room!  X:{room.X}  Y: {room.Y}");
+        CameraController.instance.currRoom = room;
+        currRoom = room;
+    }
 }

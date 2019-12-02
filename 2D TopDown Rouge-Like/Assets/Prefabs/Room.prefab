@@ -141,6 +141,7 @@ GameObject:
   - component: {fileID: 4483286122442956283}
   - component: {fileID: 5100072667425675568}
   - component: {fileID: 3590389248446193530}
+  - component: {fileID: 928830314031606798}
   m_Layer: 0
   m_Name: Room
   m_TagString: Room
@@ -228,7 +229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c028678dcab1a2d44b8347f39ddb348f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: 
+  roomName: 
   X: 0
   Y: 0
   Width: 19
@@ -269,6 +270,32 @@ MonoBehaviour:
     horizontalOffset: 0
   gridTile: {fileID: 0}
   availablePoints: []
+--- !u!61 &928830314031606798
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4483286122442956282}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 19, y: 19}
+  m_EdgeRadius: 0
 --- !u!1 &4483286122520958310
 GameObject:
   m_ObjectHideFlags: 0

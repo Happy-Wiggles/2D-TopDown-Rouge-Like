@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public enum EnemyState
@@ -12,7 +11,6 @@ public enum EnemyState
 
 public class EnemyController : MonoBehaviour
 {
-
     GameObject player;
     public EnemyState currState = EnemyState.Wander;
     public float seeingRange = 8f;
@@ -71,7 +69,6 @@ public class EnemyController : MonoBehaviour
                     Death();
                     break;
                 case (EnemyState.Attack):
-                    Debug.Log("Attacking player now");
                     AttackPlayer();
                     break;
             }
@@ -154,12 +151,30 @@ public class EnemyController : MonoBehaviour
         transform.rotation = Quaternion.Lerp(transform.rotation, nextRotation, Random.Range(0.5f, 2.5f));
         chooseDirection = false;
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.CompareTag("Wall") || collision.CompareTag("DoorE") || 
-            collision.CompareTag("DoorS") || collision.CompareTag("DoorN") || 
-            collision.CompareTag("DoorW"))
+        if (collision.collider.CompareTag("Wall"))
+        {
+            transform.rotation = Quaternion.AngleAxis(180, transform.forward) * transform.rotation;
+        }
+        if (collision.collider.CompareTag("DoorN"))
+        {
+            transform.rotation = Quaternion.AngleAxis(180, transform.forward) * transform.rotation;
+        }
+        if (collision.collider.CompareTag("DoorS"))
+        {
+            transform.rotation = Quaternion.AngleAxis(180, transform.forward) * transform.rotation;
+        }
+        if (collision.collider.CompareTag("DoorW"))
+        {
+            transform.rotation = Quaternion.AngleAxis(180, transform.forward) * transform.rotation;
+        }
+        if (collision.collider.CompareTag("DoorE"))
+        {
+            transform.rotation = Quaternion.AngleAxis(180, transform.forward) * transform.rotation;
+        }
+
+        if (collision.collider.CompareTag("Enemy"))
         {
             transform.rotation = Quaternion.AngleAxis(180, transform.forward) * transform.rotation;
         }

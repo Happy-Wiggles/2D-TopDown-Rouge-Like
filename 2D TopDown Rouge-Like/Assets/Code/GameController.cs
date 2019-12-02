@@ -29,7 +29,6 @@ public class GameController : MonoBehaviour
         set => moveSpeed = value;
     }
     
-
     private void Awake()
     {
         if (instance == null)
@@ -46,9 +45,15 @@ public class GameController : MonoBehaviour
 
     public static void DamagePlayer(float damage)
     {
-        health -= damage;
-        if (health <= 0)
+        
+        
+        if (!(health <= 0))
         {
+            health -= damage;
+        }
+        else
+        {
+            health = 0;
             KillPlayer();
         }
     }
@@ -60,6 +65,8 @@ public class GameController : MonoBehaviour
 
     public static void KillPlayer()
     {
-        Debug.Log("You died!");
+        //TODO:
+        //Show death screen and block all inputs except for mouse clicks on retry/back_to_menu/...
+        Debug.Log("You just died!");
     }
 }
