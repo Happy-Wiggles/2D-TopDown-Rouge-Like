@@ -50,6 +50,16 @@ public class PlayerController : MonoBehaviour
             weapon.lastFire = Time.time;
         }
 
+        if (Input.GetButtonDown("Fire1") && Time.time > (weapon.lastFire + weapon.fireRate))
+        {
+            var mouseConverted = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 shootingDirection = mouseConverted - PlayerRigidBody.transform.position;
+            shootingDirection.z = 0;
+            //shootingDirection.Normalize();
+            weapon.Shoot(shootingDirection);
+            weapon.lastFire = Time.time;
+        }
+
         PlayerRigidBody.velocity = new Vector3(horizontal * Speed, vertical * Speed, 0);
         
         if (!(PlayerRigidBody.velocity.x == 0 && PlayerRigidBody.velocity.y == 0)) //Check if player is moving
