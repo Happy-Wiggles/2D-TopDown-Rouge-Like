@@ -67,6 +67,5 @@ public class GameController : MonoBehaviour
     {
         //TODO:
         //Show death screen and block all inputs except for mouse clicks on retry/back_to_menu/...
-        Debug.Log("You just died!");
     }
 }
