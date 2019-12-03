@@ -11,7 +11,7 @@ public class WeaponController : MonoBehaviour
 
     public GameObject BulletPrefab;
 
-    public float bulletSpeed;
+    public float bulletSpeed = 1;
     public float lastFire;
     public float fireRate;
 
@@ -25,6 +25,40 @@ public class WeaponController : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void Shoot(Vector3 shootingDir)
+    {
+        GameObject bullet = Instantiate(BulletPrefab, transform.position, transform.rotation) as GameObject;
+        bullet.AddComponent<Rigidbody2D>().gravityScale = 0;
+
+        var betragX = shootingDir.x;
+        var betragY = shootingDir.y;
+        if (betragX < 0)
+        {
+            betragX *= -1;
+        }
+        if (betragY < 0)
+        {
+            betragY *= -1; 
+        }
+        var bigger = betragX;
+
+        if (betragY > bigger)
+        {
+            bigger = betragY;
+        }
+
+        try
+        {
+            shootingDir.x = shootingDir.x / bigger * bulletSpeed;
+            shootingDir.y = shootingDir.y / bigger * bulletSpeed;
+        }
+        catch (System.Exception e)
+        {
+
+        }
+        bullet.GetComponent<Rigidbody2D>().velocity = shootingDir;
     }
 
     public void Shoot(float x, float y)
