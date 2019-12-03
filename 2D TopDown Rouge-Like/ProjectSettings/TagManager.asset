@@ -9,6 +9,12 @@ TagManager:
   - Ground
   - Bullet
   - Enemy
+  - DoorW
+  - DoorS
+  - DoorE
+  - DoorN
+  - Portal
+  - SkillOMat
   layers:
   - Default
   - TransparentFX

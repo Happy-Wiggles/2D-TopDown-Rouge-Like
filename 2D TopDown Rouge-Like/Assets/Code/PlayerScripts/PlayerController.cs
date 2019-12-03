@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class PlayerController : MonoBehaviour
     private bool isMovingRight = false;
     private bool isMovingLeft = false;
     public WeaponController weapon;
+    bool portalE=false;
+    bool SkillOMatE=false;
 
     // Start is called before the first frame update
     void Start()
@@ -30,6 +33,7 @@ public class PlayerController : MonoBehaviour
         GameController.Health = 100;
         GameController.MaxHealth = 100;
         GameController.MoveSpeed = 8;
+        DontDestroyOnLoad(this.gameObject);
     }
 
     // Update is called once per frame
@@ -82,30 +86,67 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("IsMoving", isMoving);
         animator.SetBool("IsMovingRight", isMovingRight);
         animator.SetBool("IsMovingLeft", isMovingLeft);
-    }
 
+        if (Input.GetKeyDown("e"))
+        {
+            if (portalE)
+            {
+                PlayerRigidBody.transform.Find("PopUpE").gameObject.SetActive(false);
+                SceneManager.LoadScene("NewLevel");
+            }
+            if (SkillOMatE)
+            {
+                GameObject.Find("Room").transform.Find("SkillCanvas").gameObject.SetActive(true);
+            }
+        }
+    }
+   
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("DoorN"))
         {
             Debug.Log(collision.tag);
-            PlayerRigidBody.position = new Vector3(PlayerRigidBody.position.x, PlayerRigidBody.position.y +6);
+            PlayerRigidBody.position = new Vector3(PlayerRigidBody.position.x, PlayerRigidBody.position.y +7);
         }
         if (collision.CompareTag("DoorE"))
         {
-            Debug.Log(collision.tag);
-            PlayerRigidBody.position = new Vector3(PlayerRigidBody.position.x+6, PlayerRigidBody.position.y, 0);
+           
+            PlayerRigidBody.position = new Vector3(PlayerRigidBody.position.x+7, PlayerRigidBody.position.y, 0);
         }
         if (collision.CompareTag("DoorS"))
         {
-            Debug.Log(collision.tag);
-            PlayerRigidBody.position = new Vector3(PlayerRigidBody.position.x, PlayerRigidBody.position.y -6);
+            
+            PlayerRigidBody.position = new Vector3(PlayerRigidBody.position.x, PlayerRigidBody.position.y -7);
         }
         if (collision.CompareTag("DoorW"))
         {
-            Debug.Log(collision.tag);
-            PlayerRigidBody.position = new Vector3(PlayerRigidBody.position.x - 6, PlayerRigidBody.position.y, 0);
+           
+            PlayerRigidBody.position = new Vector3(PlayerRigidBody.position.x - 7, PlayerRigidBody.position.y, 0);
         }
 
+        if (collision.CompareTag("Portal"))
+        {
+            PlayerRigidBody.transform.Find("PopUpE").gameObject.SetActive(true);
+            portalE = true;
+        }
+        if (collision.CompareTag("SkillOMat"))
+        {
+            PlayerRigidBody.transform.Find("PopUpE").gameObject.SetActive(true);
+            SkillOMatE = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Portal"))
+        {
+            PlayerRigidBody.transform.Find("PopUpE").gameObject.SetActive(false);
+            portalE = false;
+        }
+        if (collision.CompareTag("SkillOMat"))
+        {
+            PlayerRigidBody.transform.Find("PopUpE").gameObject.SetActive(false);
+            SkillOMatE = false;
+        }
     }
 }

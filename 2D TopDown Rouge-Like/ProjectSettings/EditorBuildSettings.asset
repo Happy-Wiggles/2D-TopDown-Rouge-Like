@@ -16,10 +16,13 @@ EditorBuildSettings:
     guid: a188b45dab532d446ba9a941ffa2504e
   - enabled: 1
     path: Assets/Scenes/Start.unity
-    guid: c81dcb4b8f397954d848e04ab9e5bb8c
+    guid: dfa6382cd461ac745bd6af1ea25c60b7
   - enabled: 1
     path: Assets/Scenes/Hub.unity
     guid: a0bad019c3798c445a8eeeae69610e0c
+  - enabled: 1
+    path: Assets/Scenes/NewLevel.unity
+    guid: c81dcb4b8f397954d848e04ab9e5bb8c
   - enabled: 1
     path: Assets/Scenes/Room.unity
     guid: 06350a26f4cc2cd4693d127d10dad8c9
