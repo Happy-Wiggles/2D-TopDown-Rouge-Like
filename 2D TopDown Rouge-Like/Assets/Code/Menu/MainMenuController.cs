@@ -9,6 +9,7 @@ public class MainMenuController : MonoBehaviour
     public void Play()
     {
         SceneManager.LoadScene("Start");
+        SceneManager.LoadSceneAsync("Hub", LoadSceneMode.Additive);
     }
 
     public void Quit()
