@@ -6,7 +6,7 @@ public class WeaponController : MonoBehaviour
 {
 
     public string WeaponKind { get; set; }
-    
+
     public float Damage { get; set; }
 
     public GameObject BulletPrefab;
@@ -24,7 +24,7 @@ public class WeaponController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void Shoot(Vector3 shootingDir)
@@ -40,7 +40,7 @@ public class WeaponController : MonoBehaviour
         }
         if (betragY < 0)
         {
-            betragY *= -1; 
+            betragY *= -1;
         }
         var bigger = betragX;
 
