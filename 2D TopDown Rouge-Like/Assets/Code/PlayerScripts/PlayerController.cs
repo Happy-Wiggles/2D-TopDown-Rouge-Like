@@ -14,15 +14,15 @@ public class PlayerController : MonoBehaviour
     private bool isMovingRight = false;
     private bool isMovingLeft = false;
     public WeaponController weapon;
-    bool portalE=false;
-    bool SkillOMatE=false;
+    bool portalE = false;
+    bool SkillOMatE = false;
 
     // Start is called before the first frame update
     void Start()
     {
         PlayerRigidBody = GetComponent<Rigidbody2D>();
         PlayerRigidBody.freezeRotation = true;
-        
+
         if (weapon == null)
         {
             weapon = new WeaponController();
@@ -43,15 +43,25 @@ public class PlayerController : MonoBehaviour
         var vertical = Input.GetAxis("Vertical");
         var shootHorizontal = Input.GetAxis("ShootHorizontal"); //TODO: Change input to mouseButtons and direction of pointer relative to the player
         var shootVertical = Input.GetAxis("ShootVertical");
-        
+
         if ((shootHorizontal != 0 || shootVertical != 0) && Time.time > (weapon.lastFire + weapon.fireRate))
         {
             weapon.Shoot(shootHorizontal, shootVertical);
             weapon.lastFire = Time.time;
         }
 
+        if (Input.GetButtonDown("Fire1") && Time.time > (weapon.lastFire + weapon.fireRate))
+        {
+            var mouseConverted = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 shootingDirection = mouseConverted - PlayerRigidBody.transform.position;
+            shootingDirection.z = 0;
+            //shootingDirection.Normalize();
+            weapon.Shoot(shootingDirection);
+            weapon.lastFire = Time.time;
+        }
+
         PlayerRigidBody.velocity = new Vector3(horizontal * Speed, vertical * Speed, 0);
-        
+
         if (!(PlayerRigidBody.velocity.x == 0 && PlayerRigidBody.velocity.y == 0)) //Check if player is moving
         {
             isMoving = true;
@@ -72,7 +82,7 @@ public class PlayerController : MonoBehaviour
             isMovingRight = false;
             isMovingLeft = false;
         }
-        
+
         animator.SetBool("IsMoving", isMoving);
         animator.SetBool("IsMovingRight", isMovingRight);
         animator.SetBool("IsMovingLeft", isMovingLeft);
@@ -90,27 +100,27 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-   
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("DoorN"))
         {
             Debug.Log(collision.tag);
-            PlayerRigidBody.position = new Vector3(PlayerRigidBody.position.x, PlayerRigidBody.position.y +7);
+            PlayerRigidBody.position = new Vector3(PlayerRigidBody.position.x, PlayerRigidBody.position.y + 7);
         }
         if (collision.CompareTag("DoorE"))
         {
-           
-            PlayerRigidBody.position = new Vector3(PlayerRigidBody.position.x+7, PlayerRigidBody.position.y, 0);
+
+            PlayerRigidBody.position = new Vector3(PlayerRigidBody.position.x + 7, PlayerRigidBody.position.y, 0);
         }
         if (collision.CompareTag("DoorS"))
         {
-            
-            PlayerRigidBody.position = new Vector3(PlayerRigidBody.position.x, PlayerRigidBody.position.y -7);
+
+            PlayerRigidBody.position = new Vector3(PlayerRigidBody.position.x, PlayerRigidBody.position.y - 7);
         }
         if (collision.CompareTag("DoorW"))
         {
-           
+
             PlayerRigidBody.position = new Vector3(PlayerRigidBody.position.x - 7, PlayerRigidBody.position.y, 0);
         }
 
