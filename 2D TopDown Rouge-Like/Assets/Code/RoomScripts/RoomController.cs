@@ -27,13 +27,15 @@ public class RoomInfo{
 
 public class RoomController : MonoBehaviour
 {
-    List<RoomInfo> Generated=new List<RoomInfo>();
     public static RoomController instance;
+
+    List<RoomInfo> Generated=new List<RoomInfo>();
+    List<Room> loadedRooms = new List<Room>();
     Queue<RoomInfo> loadRoomQueue = new Queue<RoomInfo>();
     RoomInfo currentLoadRoomInfo = new RoomInfo();
-    List<Room> loadedRooms = new List<Room>();
-
     Room currRoom;
+    public GameObject portalObject;
+    bool portalBool=false;
 
     bool isLoadingRoom=false;
 
@@ -91,6 +93,13 @@ public class RoomController : MonoBehaviour
 
         if (loadRoomQueue.Count == 0)
         {
+            if (!portalBool)
+            {
+                Room positionRoom = loadedRooms[Random.Range(0, loadedRooms.Count)];
+                Vector3 positionVector = new Vector3(positionRoom.X * positionRoom.Width, positionRoom.Y * positionRoom.Height, 0);
+                Instantiate(portalObject, positionVector, Quaternion.identity);
+                portalBool = true;
+            }
             return;
         }
 

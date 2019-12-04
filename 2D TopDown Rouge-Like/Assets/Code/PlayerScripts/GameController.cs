@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameController : MonoBehaviour
 {
@@ -10,9 +11,13 @@ public class GameController : MonoBehaviour
     private static float health;
     private static float maxHealth;
     private static float moveSpeed;
+    private static string currentLevel;
+    private static int currentX;
+    private static int currentY;
 
-    public Text healthText;
-    
+
+    public TextMeshProUGUI healthText;
+    public TextMeshProUGUI levelText;
     public static float Health
     {
         get => Health = health;
@@ -28,7 +33,24 @@ public class GameController : MonoBehaviour
         get => MoveSpeed = moveSpeed;
         set => moveSpeed = value;
     }
-    
+    public static string CurrentLevel
+    {
+        get => CurrentLevel = currentLevel;
+        set => currentLevel = value;
+    }
+
+    public static int CurrentX
+    {
+        get => CurrentX = currentX;
+        set => currentX = value;
+    }
+
+    public static int CurrentY
+    {
+        get => CurrentY = currentY;
+        set => currentY = value;
+    }
+
     private void Awake()
     {
         if (instance == null)
@@ -36,11 +58,18 @@ public class GameController : MonoBehaviour
             instance = this;
         }            
     }
+    private void Start()
+    {
+        DontDestroyOnLoad(instance);
+    }
 
     // Update is called once per frame
     void Update()
     {
         healthText.text = $"Health: {health}";
+        levelText.text = $"Level: {currentLevel}   Room {currentX},{currentY}";
+
+
     }
 
     public static void DamagePlayer(float damage)

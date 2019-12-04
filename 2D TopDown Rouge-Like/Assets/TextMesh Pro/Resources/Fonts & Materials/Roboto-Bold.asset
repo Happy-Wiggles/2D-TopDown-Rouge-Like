@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
-  m_Name: Roboto-Bold SDF
+  m_Name: Roboto-Bold
   m_EditorClassIdentifier: 
   hashCode: -635320526
   material: {fileID: 21732594731744552}

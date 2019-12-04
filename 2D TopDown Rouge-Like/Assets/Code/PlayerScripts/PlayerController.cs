@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     public WeaponController weapon;
     bool portalE = false;
     bool SkillOMatE = false;
+    int Level = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +34,10 @@ public class PlayerController : MonoBehaviour
         GameController.Health = 100;
         GameController.MaxHealth = 100;
         GameController.MoveSpeed = 8;
+        GameController.CurrentLevel = "Hub";
+        GameController.CurrentX = 0;
+        GameController.CurrentY = 0;
+
         DontDestroyOnLoad(this.gameObject);
     }
 
@@ -54,7 +59,6 @@ public class PlayerController : MonoBehaviour
             var mouseConverted = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector3 shootingDirection = mouseConverted - PlayerRigidBody.transform.position;
             shootingDirection.z = 0;
-            //shootingDirection.Normalize();
             weapon.Shoot(shootingDirection);
             weapon.lastFire = Time.time;
         }
@@ -91,7 +95,10 @@ public class PlayerController : MonoBehaviour
             if (portalE)
             {
                 PlayerRigidBody.transform.Find("PopUpE").gameObject.SetActive(false);
+                Level = Level + 1;
+                GameController.CurrentLevel = ""+Level;
                 SceneManager.LoadScene("NewLevel");
+                PlayerRigidBody.position = new Vector3(0, 0);
             }
             if (SkillOMatE)
             {
@@ -104,22 +111,18 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.CompareTag("DoorN"))
         {
-            Debug.Log(collision.tag);
             PlayerRigidBody.position = new Vector3(PlayerRigidBody.position.x, PlayerRigidBody.position.y + 7);
         }
         if (collision.CompareTag("DoorE"))
         {
-
             PlayerRigidBody.position = new Vector3(PlayerRigidBody.position.x + 7, PlayerRigidBody.position.y, 0);
         }
         if (collision.CompareTag("DoorS"))
         {
-
             PlayerRigidBody.position = new Vector3(PlayerRigidBody.position.x, PlayerRigidBody.position.y - 7);
         }
         if (collision.CompareTag("DoorW"))
         {
-
             PlayerRigidBody.position = new Vector3(PlayerRigidBody.position.x - 7, PlayerRigidBody.position.y, 0);
         }
 

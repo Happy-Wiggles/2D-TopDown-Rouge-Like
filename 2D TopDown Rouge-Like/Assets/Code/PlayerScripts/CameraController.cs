@@ -32,8 +32,43 @@ public class CameraController : MonoBehaviour
         }
 
         Vector3 targetPos = GetCameraTargetPosition();
+        float diffX=0;
+        float diffY=0;
+        float platzA ;
+        float platzB ;
 
-        transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * moveSpeedOnRoomChange);
+        platzA = targetPos.x;
+        platzB = transform.position.x;
+        if (platzA < 0)
+            platzA *= -1;
+        if (platzB < 0)
+            platzB *= -1;
+        if (platzB > platzA)
+            diffX = platzB - platzA;
+        if (platzA >= platzB)
+            diffX = platzA - platzB;
+        
+        platzA = targetPos.y;
+        platzB = transform.position.y;
+        if (platzA < 0)
+            platzA *= -1;
+        if (platzB < 0)
+            platzB *= -1;
+        if (platzB > platzA)
+            diffY = platzB - platzA;
+        if (platzA >= platzB)
+            diffY = platzA - platzB;
+
+        if (diffX > 20 || diffY > 20) //Ebenenwechsel
+        {
+            transform.position = targetPos;
+        }
+        else
+        {
+            transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * moveSpeedOnRoomChange);
+        }
+
+        
     }
 
     Vector3 GetCameraTargetPosition()
