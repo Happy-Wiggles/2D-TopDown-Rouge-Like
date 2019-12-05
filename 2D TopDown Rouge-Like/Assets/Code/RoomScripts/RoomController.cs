@@ -187,7 +187,6 @@ public class RoomController : MonoBehaviour
                     foreach (var enemy in enemies)
                     {
                         enemy.playerNotInRoom = true;
-                        Debug.Log("Enemie is Idle");
                     }
                 }
             }
@@ -199,7 +198,6 @@ public class RoomController : MonoBehaviour
                     foreach (var enemy in enemies)
                     {
                         enemy.playerNotInRoom = false;
-                        Debug.Log("Enemie is doing something intresting");
                     }
                 }
             }
