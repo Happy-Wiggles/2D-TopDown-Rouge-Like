@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour
             weapon.Shoot(shootHorizontal, shootVertical);
             weapon.lastFire = Time.time;
         }
-        if (Input.GetButtonDown("Fire1") && Time.time > (weapon.lastFire + weapon.fireRate))
+        if (Input.GetButton("Fire1") && Time.time > (weapon.lastFire + weapon.fireRate))
         {
             var mouseConverted = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector3 shootingDirection = mouseConverted - PlayerRigidBody.transform.position;
