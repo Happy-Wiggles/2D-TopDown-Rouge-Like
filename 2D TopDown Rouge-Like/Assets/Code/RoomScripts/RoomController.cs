@@ -36,6 +36,7 @@ public class RoomController : MonoBehaviour
     Room currRoom;
     public GameObject portalObject;
     bool portalBool=false;
+    private bool firstTimeLoad = true;
 
     bool isLoadingRoom=false;
 
@@ -53,7 +54,7 @@ public class RoomController : MonoBehaviour
         {
             LoadRoom(newRoom);
         }
-
+        
     }
 
     bool RoomExists(int x, int y)
@@ -100,6 +101,12 @@ public class RoomController : MonoBehaviour
                 Instantiate(portalObject, positionVector, Quaternion.identity);
                 portalBool = true;
             }
+            if (firstTimeLoad)
+            {
+                UpdateEnemiesInRoom();
+                firstTimeLoad = !firstTimeLoad;
+            }
+            
             return;
         }
 
@@ -163,8 +170,39 @@ public class RoomController : MonoBehaviour
 
     public void OnPlayerEnterRoom(Room room)
     {
-        Debug.Log($"Entered Room!  X:{room.X}  Y: {room.Y}");
         CameraController.instance.currRoom = room;
         currRoom = room;
+        UpdateEnemiesInRoom();
+    }
+
+    private void UpdateEnemiesInRoom()
+    {
+        foreach (var room in loadedRooms)
+        {
+            if (currRoom != room)
+            {
+                EnemyController[] enemies = room.GetComponentsInChildren<EnemyController>();
+                if (enemies != null)
+                {
+                    foreach (var enemy in enemies)
+                    {
+                        enemy.playerNotInRoom = true;
+                        Debug.Log("Enemie is Idle");
+                    }
+                }
+            }
+            else
+            {
+                EnemyController[] enemies = room.GetComponentsInChildren<EnemyController>();
+                if (enemies != null)
+                {
+                    foreach (var enemy in enemies)
+                    {
+                        enemy.playerNotInRoom = false;
+                        Debug.Log("Enemie is doing something intresting");
+                    }
+                }
+            }
+        }
     }
 }

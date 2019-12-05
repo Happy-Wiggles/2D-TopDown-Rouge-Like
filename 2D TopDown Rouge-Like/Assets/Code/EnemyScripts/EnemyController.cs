@@ -3,6 +3,7 @@ using UnityEngine;
 
 public enum EnemyState
 {
+    Idle,
     Wander,
     Chase,
     Die,
@@ -12,13 +13,14 @@ public enum EnemyState
 public class EnemyController : MonoBehaviour
 {
     GameObject player;
-    public EnemyState currState = EnemyState.Wander;
+    public EnemyState currState = EnemyState.Idle;
     public float seeingRange = 8f;
     public float speed = 3f;
     public float health = 100f;
     public float baseDamage = 10f;
     public float attackRange = 1.5f;
     private bool dead = false;
+    public bool playerNotInRoom = true;
 
     private float cooldown = 2f;
     private bool cooldownAttack = false;
@@ -36,7 +38,27 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        try
+
+        switch (currState)
+        {
+            case (EnemyState.Idle):
+                Idle();
+                break;
+            case (EnemyState.Wander):
+                Wander();
+                break;
+            case (EnemyState.Chase):
+                Chase();
+                break;
+            case (EnemyState.Die):
+                Death();
+                break;
+            case (EnemyState.Attack):
+                AttackPlayer();
+                break;
+        }
+
+        if (!playerNotInRoom) //Player is in room
         {
             if (isPlayerInRange(seeingRange) && currState != EnemyState.Die)
             {
@@ -56,33 +78,22 @@ public class EnemyController : MonoBehaviour
             {
                 currState = EnemyState.Die;
             }
-
-            switch (currState)
-            {
-                case (EnemyState.Wander):
-                    Wander();
-                    break;
-                case (EnemyState.Chase):
-                    Chase();
-                    break;
-                case (EnemyState.Die):
-                    Death();
-                    break;
-                case (EnemyState.Attack):
-                    AttackPlayer();
-                    break;
-            }
         }
-        catch (System.Exception exc)
+        else
         {
-            //TODO: Do something when player is dead and therefore null
-            Debug.Log(exc.Message.ToString());
+            currState = EnemyState.Idle;
         }
+
     }
 
     private bool isPlayerInRange(float range)
     {
         return Vector3.Distance(transform.position, player.transform.position) <= range;
+    }
+
+    void Idle()
+    {
+        //Enemy does literally nothing
     }
 
     void Wander()
@@ -93,7 +104,7 @@ public class EnemyController : MonoBehaviour
         }
 
         transform.position += -transform.right * speed * Time.deltaTime;
-        
+
         if (isPlayerInRange(seeingRange))
         {
             currState = EnemyState.Chase;
@@ -143,9 +154,9 @@ public class EnemyController : MonoBehaviour
     private IEnumerator ChooseDirection()
     {
         chooseDirection = true;
-        
+
         yield return new WaitForSeconds(Random.Range(2f, 4f));
-        
+
         randomDirection = new Vector3(0, 0, Random.Range(0, 360));
         var nextRotation = Quaternion.Euler(randomDirection);
         transform.rotation = Quaternion.Lerp(transform.rotation, nextRotation, Random.Range(0.5f, 2.5f));
