@@ -16,6 +16,7 @@
 Library/
 Temp/
 obj/Debug/
+obj/
 Build/
 Logs/
 Packages/
