@@ -8,24 +8,24 @@ public class RandomGen : MonoBehaviour
     public List<RoomInfo> getLevel(int roomCount, int maxX, int maxY)
     {
         List<RoomInfo> generated = new List<RoomInfo>();
-        generated.Add(new RoomInfo("Room",0, 0,false,false,false,false));
+        generated.Add(new RoomInfo("Room", 0, 0, false, false, false, false));
 
-        for( int i = roomCount-1; i > 0; i--)
+        for (int i = roomCount - 1; i > 0; i--)
         {
             int Flag = generated.Count;
             while (Flag == generated.Count)
             {
-                int currentRoomInfo = Random.Range(0, generated.Count );
+                int currentRoomInfo = Random.Range(0, generated.Count);
                 int currentDirection = Random.Range(0, 4);
 
                 if (currentDirection == 0 && generated[currentRoomInfo].Y + 1 <= maxY && (!existsInList(generated, generated[currentRoomInfo].X, generated[currentRoomInfo].Y + 1)))
                 {
-                    generated.Add(new RoomInfo("Room", generated[currentRoomInfo].X, generated[currentRoomInfo].Y + 1, false, false, false, false));   
+                    generated.Add(new RoomInfo("Room", generated[currentRoomInfo].X, generated[currentRoomInfo].Y + 1, false, false, false, false));
                 }
 
-                if (currentDirection == 1 && generated[currentRoomInfo].X + 1 <= maxX && (!existsInList(generated, generated[currentRoomInfo].X+1, generated[currentRoomInfo].Y)))
+                if (currentDirection == 1 && generated[currentRoomInfo].X + 1 <= maxX && (!existsInList(generated, generated[currentRoomInfo].X + 1, generated[currentRoomInfo].Y)))
                 {
-                    generated.Add(new RoomInfo("Room", generated[currentRoomInfo].X+1, generated[currentRoomInfo].Y, false, false, false, false));
+                    generated.Add(new RoomInfo("Room", generated[currentRoomInfo].X + 1, generated[currentRoomInfo].Y, false, false, false, false));
                 }
 
                 if (currentDirection == 2 && generated[currentRoomInfo].Y - 1 >= (-1) * maxY && (!existsInList(generated, generated[currentRoomInfo].X, generated[currentRoomInfo].Y - 1)))
@@ -39,15 +39,15 @@ public class RandomGen : MonoBehaviour
                 }
             }
         }
-        foreach(RoomInfo roomInfo in generated)
+        foreach (RoomInfo roomInfo in generated)
         {
-            if (existsInList(generated, roomInfo.X, roomInfo.Y+1))
+            if (existsInList(generated, roomInfo.X, roomInfo.Y + 1))
                 roomInfo.DoorN = true;
-            if (existsInList(generated, roomInfo.X+1, roomInfo.Y))
+            if (existsInList(generated, roomInfo.X + 1, roomInfo.Y))
                 roomInfo.DoorE = true;
-            if (existsInList(generated, roomInfo.X, roomInfo.Y-1))
+            if (existsInList(generated, roomInfo.X, roomInfo.Y - 1))
                 roomInfo.DoorS = true;
-            if (existsInList(generated, roomInfo.X-1, roomInfo.Y))
+            if (existsInList(generated, roomInfo.X - 1, roomInfo.Y))
                 roomInfo.DoorW = true;
         }
 
@@ -60,7 +60,7 @@ public class RandomGen : MonoBehaviour
         List<RoomInfo> generated = new List<RoomInfo>();
         generated.Add(new RoomInfo("Room", 0, 0, false, false, false, false));
 
-        for (int i = roomCount-1; i > 0; i--)
+        for (int i = roomCount - 1; i > 0; i--)
         {
             int Flag = generated.Count;
             while (Flag == generated.Count)
@@ -96,7 +96,7 @@ public class RandomGen : MonoBehaviour
                 {
                     generated.Add(new RoomInfo("Room", generated[currentRoomInfo].X - 1, generated[currentRoomInfo].Y, false, false, false, false));
                 }
-                
+
             }
         }
         foreach (RoomInfo roomInfo in generated)
@@ -115,13 +115,13 @@ public class RandomGen : MonoBehaviour
         return generated;
     }
 
-    bool existsInList(List<RoomInfo>list,int x,int y)
+    bool existsInList(List<RoomInfo> list, int x, int y)
     {
-        foreach(RoomInfo room in list)
+        foreach (RoomInfo room in list)
         {
-            if (x == room.X && y == room.Y) 
-            { 
-                return true; 
+            if (x == room.X && y == room.Y)
+            {
+                return true;
             }
         }
         return false;

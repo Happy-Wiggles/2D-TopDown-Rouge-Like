@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
     {
         PlayerRigidBody = GetComponent<Rigidbody2D>();
         PlayerRigidBody.freezeRotation = true;
-        GameController.Player=this;
+        GameController.Player = this;
 
         if (weapon == null)
         {
@@ -48,7 +48,7 @@ public class PlayerController : MonoBehaviour
     {
         var horizontal = Input.GetAxis("Horizontal");
         var vertical = Input.GetAxis("Vertical");
-        var shootHorizontal = Input.GetAxis("ShootHorizontal"); 
+        var shootHorizontal = Input.GetAxis("ShootHorizontal");
         var shootVertical = Input.GetAxis("ShootVertical");
 
         if ((shootHorizontal != 0 || shootVertical != 0) && Time.time > (weapon.lastFire + weapon.fireRate))
@@ -99,7 +99,7 @@ public class PlayerController : MonoBehaviour
                 PlayerRigidBody.transform.Find("PopUpE").gameObject.SetActive(false);
                 portalE = false;
                 Level = Level + 1;
-                GameController.CurrentLevel = ""+Level;
+                GameController.CurrentLevel = "" + Level;
                 SceneManager.LoadScene("NewLevel");
                 PlayerRigidBody.position = new Vector3(0, 0);
             }
@@ -112,7 +112,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("DoorN")&& GameController.CurrentRoomEnemies == 0)
+        if (collision.CompareTag("DoorN") && GameController.CurrentRoomEnemies == 0)
         {
             PlayerRigidBody.position = new Vector3(PlayerRigidBody.position.x, PlayerRigidBody.position.y + 7);
         }
@@ -131,8 +131,8 @@ public class PlayerController : MonoBehaviour
 
         if (collision.CompareTag("Portal"))
         {
-            
-            if(GameController.CurrentRoomEnemies==0)
+
+            if (GameController.CurrentRoomEnemies == 0)
             {
                 PlayerRigidBody.transform.Find("PopUpE").gameObject.SetActive(true);
                 portalE = true;
@@ -142,7 +142,7 @@ public class PlayerController : MonoBehaviour
                 PlayerRigidBody.transform.Find("PopUpEgrey").gameObject.SetActive(true);
                 portalEgrey = true;
             }
-            
+
         }
         if (collision.CompareTag("SkillOMat"))
         {
@@ -166,7 +166,7 @@ public class PlayerController : MonoBehaviour
                 PlayerRigidBody.transform.Find("PopUpEgrey").gameObject.SetActive(false);
                 portalEgrey = false;
             }
-                
+
         }
         if (collision.CompareTag("SkillOMat"))
         {

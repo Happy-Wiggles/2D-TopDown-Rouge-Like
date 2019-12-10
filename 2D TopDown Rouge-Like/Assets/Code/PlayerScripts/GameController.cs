@@ -74,7 +74,7 @@ public class GameController : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-        }            
+        }
     }
     private void Start()
     {
@@ -86,14 +86,12 @@ public class GameController : MonoBehaviour
     {
         healthText.text = $"Health: {health}";
         levelText.text = $"Level: {currentLevel}   Room {currentX},{currentY}";
-        Debug.Log(""+player.portalE);
-
     }
 
     public static void DamagePlayer(float damage)
     {
-        
-        
+
+
         if (!(health <= 0))
         {
             health -= damage;
@@ -107,7 +105,7 @@ public class GameController : MonoBehaviour
 
     public static void healPlayer(int healthToAdd)
     {
-        health = Mathf.Min(maxHealth, health + healthToAdd); 
+        health = Mathf.Min(maxHealth, health + healthToAdd);
     }
 
     public static void KillPlayer()

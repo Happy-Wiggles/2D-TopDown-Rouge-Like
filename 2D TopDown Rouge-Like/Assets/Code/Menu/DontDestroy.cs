@@ -8,11 +8,11 @@ public class DontDestroy : MonoBehaviour
     void Start()
     {
         DontDestroyOnLoad(this);
-}
+    }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

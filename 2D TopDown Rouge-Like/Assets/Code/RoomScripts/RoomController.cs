@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class RoomInfo{
+public class RoomInfo
+{
     public string name;
     public int X;
     public int Y;
@@ -29,7 +30,7 @@ public class RoomController : MonoBehaviour
 {
     public static RoomController instance;
 
-    List<RoomInfo> Generated=new List<RoomInfo>();
+    List<RoomInfo> Generated = new List<RoomInfo>();
     List<Room> loadedRooms = new List<Room>();
     Queue<RoomInfo> loadRoomQueue = new Queue<RoomInfo>();
     RoomInfo currentLoadRoomInfo = new RoomInfo();
@@ -37,10 +38,10 @@ public class RoomController : MonoBehaviour
     public GameObject portalObject;
     public int amountRooms = 10;
     public int density = 2;
-    bool portalBool=false;
+    bool portalBool = false;
     private bool firstTimeLoad = true;
 
-    bool isLoadingRoom=false;
+    bool isLoadingRoom = false;
 
     private void Awake()
     {
@@ -50,13 +51,13 @@ public class RoomController : MonoBehaviour
     void Start()
     {
         RandomGen Roomgeneration = new RandomGen();
-        Generated = Roomgeneration.getLevelExtreme(amountRooms,density);
+        Generated = Roomgeneration.getLevelExtreme(amountRooms, density);
 
-        foreach(RoomInfo newRoom in Generated)
+        foreach (RoomInfo newRoom in Generated)
         {
             LoadRoom(newRoom);
         }
-        
+
     }
 
     bool RoomExists(int x, int y)
@@ -79,7 +80,7 @@ public class RoomController : MonoBehaviour
             return;
         }
         loadRoomQueue.Enqueue(roomInfo);
-        
+
     }
 
     void Update()
@@ -100,9 +101,6 @@ public class RoomController : MonoBehaviour
             {
                 Room portalRoom = loadedRooms[findExtremes(loadedRooms)[Random.Range(0, 4)]];
                 portalRoom.transform.Find("Portal").gameObject.SetActive(true);
-
-                //Vector3 positionVector = new Vector3(portalRoom.X * portalRoom.Width, portalRoom.Y * portalRoom.Height, 0);
-                //Instantiate(portalObject, positionVector, Quaternion.identity);
                 portalBool = true;
             }
             if (firstTimeLoad)
@@ -110,7 +108,7 @@ public class RoomController : MonoBehaviour
                 UpdateEnemiesInRoom();
                 firstTimeLoad = !firstTimeLoad;
             }
-            
+
             return;
         }
 
@@ -135,7 +133,7 @@ public class RoomController : MonoBehaviour
     public void RegisterRoom(Room room)
     {
         room.transform.position = new Vector3(
-            currentLoadRoomInfo.X * room.Width, 
+            currentLoadRoomInfo.X * room.Width,
             currentLoadRoomInfo.Y * room.Height,
             0);
 
