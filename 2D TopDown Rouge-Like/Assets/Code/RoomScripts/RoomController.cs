@@ -35,6 +35,8 @@ public class RoomController : MonoBehaviour
     RoomInfo currentLoadRoomInfo = new RoomInfo();
     Room currRoom;
     public GameObject portalObject;
+    public int amountRooms = 10;
+    public int density = 2;
     bool portalBool=false;
     private bool firstTimeLoad = true;
 
@@ -48,7 +50,7 @@ public class RoomController : MonoBehaviour
     void Start()
     {
         RandomGen Roomgeneration = new RandomGen();
-        Generated = Roomgeneration.getLevelExtreme(12,8);
+        Generated = Roomgeneration.getLevelExtreme(amountRooms,density);
 
         foreach(RoomInfo newRoom in Generated)
         {
@@ -96,9 +98,11 @@ public class RoomController : MonoBehaviour
         {
             if (!portalBool)
             {
-                Room positionRoom = loadedRooms[Random.Range(0, loadedRooms.Count)];
-                Vector3 positionVector = new Vector3(positionRoom.X * positionRoom.Width, positionRoom.Y * positionRoom.Height, 0);
-                Instantiate(portalObject, positionVector, Quaternion.identity);
+                Room portalRoom = loadedRooms[findExtremes(loadedRooms)[Random.Range(0, 4)]];
+                portalRoom.transform.Find("Portal").gameObject.SetActive(true);
+
+                //Vector3 positionVector = new Vector3(portalRoom.X * portalRoom.Width, portalRoom.Y * portalRoom.Height, 0);
+                //Instantiate(portalObject, positionVector, Quaternion.identity);
                 portalBool = true;
             }
             if (firstTimeLoad)
@@ -202,5 +206,34 @@ public class RoomController : MonoBehaviour
                 }
             }
         }
+    }
+    List<int> findExtremes(List<Room> inList)
+    {
+        int N = 0;
+        int E = 0;
+        int S = 0;
+        int W = 0;
+
+        for (int i = 0; i < inList.Count; i++)
+        {
+            if (inList[i].Y > inList[N].Y)
+                N = i;
+
+            if (inList[i].X > inList[E].X)
+                E = i;
+
+            if (inList[i].Y < inList[S].Y)
+                S = i;
+
+            if (inList[i].X < inList[W].X)
+                W = i;
+
+        }
+        List<int> outList = new List<int>();
+        outList.Add(N);
+        outList.Add(E);
+        outList.Add(S);
+        outList.Add(W);
+        return outList;
     }
 }

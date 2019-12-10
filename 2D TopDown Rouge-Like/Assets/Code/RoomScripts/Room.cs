@@ -10,7 +10,9 @@ public class Room : MonoBehaviour
     
     public int Width = 19;
     public int Height = 19;
+    public int amountOfEnemies = 0; 
 
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +40,9 @@ public class Room : MonoBehaviour
         
         if (collision.CompareTag("Player"))
         {
+            this.transform.Find("FogOfWar").gameObject.SetActive(false);
+            GameController.CurrentRoom = this;
+            GameController.CurrentRoomEnemies=this.amountOfEnemies;
             GameController.CurrentX = this.X;
             GameController.CurrentY = this.Y;
             RoomController.instance.OnPlayerEnterRoom(this);

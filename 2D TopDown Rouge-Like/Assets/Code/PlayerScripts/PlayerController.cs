@@ -14,7 +14,8 @@ public class PlayerController : MonoBehaviour
     private bool isMovingRight = false;
     private bool isMovingLeft = false;
     public WeaponController weapon;
-    bool portalE = false;
+    public bool portalE = false;
+    bool portalEgrey = false;
     bool SkillOMatE = false;
     int Level = 0;
 
@@ -23,6 +24,7 @@ public class PlayerController : MonoBehaviour
     {
         PlayerRigidBody = GetComponent<Rigidbody2D>();
         PlayerRigidBody.freezeRotation = true;
+        GameController.Player=this;
 
         if (weapon == null)
         {
@@ -46,7 +48,7 @@ public class PlayerController : MonoBehaviour
     {
         var horizontal = Input.GetAxis("Horizontal");
         var vertical = Input.GetAxis("Vertical");
-        var shootHorizontal = Input.GetAxis("ShootHorizontal"); //TODO: Change input to mouseButtons and direction of pointer relative to the player
+        var shootHorizontal = Input.GetAxis("ShootHorizontal"); 
         var shootVertical = Input.GetAxis("ShootVertical");
 
         if ((shootHorizontal != 0 || shootVertical != 0) && Time.time > (weapon.lastFire + weapon.fireRate))
@@ -95,6 +97,7 @@ public class PlayerController : MonoBehaviour
             if (portalE)
             {
                 PlayerRigidBody.transform.Find("PopUpE").gameObject.SetActive(false);
+                portalE = false;
                 Level = Level + 1;
                 GameController.CurrentLevel = ""+Level;
                 SceneManager.LoadScene("NewLevel");
@@ -109,27 +112,37 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("DoorN"))
+        if (collision.CompareTag("DoorN")&& GameController.CurrentRoomEnemies == 0)
         {
             PlayerRigidBody.position = new Vector3(PlayerRigidBody.position.x, PlayerRigidBody.position.y + 7);
         }
-        if (collision.CompareTag("DoorE"))
+        if (collision.CompareTag("DoorE") && GameController.CurrentRoomEnemies == 0)
         {
             PlayerRigidBody.position = new Vector3(PlayerRigidBody.position.x + 7, PlayerRigidBody.position.y, 0);
         }
-        if (collision.CompareTag("DoorS"))
+        if (collision.CompareTag("DoorS") && GameController.CurrentRoomEnemies == 0)
         {
             PlayerRigidBody.position = new Vector3(PlayerRigidBody.position.x, PlayerRigidBody.position.y - 7);
         }
-        if (collision.CompareTag("DoorW"))
+        if (collision.CompareTag("DoorW") && GameController.CurrentRoomEnemies == 0)
         {
             PlayerRigidBody.position = new Vector3(PlayerRigidBody.position.x - 7, PlayerRigidBody.position.y, 0);
         }
 
         if (collision.CompareTag("Portal"))
         {
-            PlayerRigidBody.transform.Find("PopUpE").gameObject.SetActive(true);
-            portalE = true;
+            
+            if(GameController.CurrentRoomEnemies==0)
+            {
+                PlayerRigidBody.transform.Find("PopUpE").gameObject.SetActive(true);
+                portalE = true;
+            }
+            else
+            {
+                PlayerRigidBody.transform.Find("PopUpEgrey").gameObject.SetActive(true);
+                portalEgrey = true;
+            }
+            
         }
         if (collision.CompareTag("SkillOMat"))
         {
@@ -142,8 +155,18 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.CompareTag("Portal"))
         {
-            PlayerRigidBody.transform.Find("PopUpE").gameObject.SetActive(false);
-            portalE = false;
+
+            if (portalE)
+            {
+                PlayerRigidBody.transform.Find("PopUpE").gameObject.SetActive(false);
+                portalE = false;
+            }
+            if (portalEgrey)
+            {
+                PlayerRigidBody.transform.Find("PopUpEgrey").gameObject.SetActive(false);
+                portalEgrey = false;
+            }
+                
         }
         if (collision.CompareTag("SkillOMat"))
         {

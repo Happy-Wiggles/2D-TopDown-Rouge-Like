@@ -14,8 +14,9 @@ public class GameController : MonoBehaviour
     private static string currentLevel;
     private static int currentX;
     private static int currentY;
-
-
+    private static int currentRoomEnemies;
+    private static Room currentRoom;
+    private static PlayerController player;
     public TextMeshProUGUI healthText;
     public TextMeshProUGUI levelText;
     public static float Health
@@ -51,6 +52,23 @@ public class GameController : MonoBehaviour
         set => currentY = value;
     }
 
+    public static int CurrentRoomEnemies
+    {
+        get => CurrentRoomEnemies = currentRoomEnemies;
+        set => currentRoomEnemies = value;
+    }
+
+    public static Room CurrentRoom
+    {
+        get => CurrentRoom = currentRoom;
+        set => currentRoom = value;
+    }
+    public static PlayerController Player
+    {
+        get => Player = player;
+        set => player = value;
+    }
+
     private void Awake()
     {
         if (instance == null)
@@ -64,11 +82,11 @@ public class GameController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         healthText.text = $"Health: {health}";
         levelText.text = $"Level: {currentLevel}   Room {currentX},{currentY}";
-
+        Debug.Log(""+player.portalE);
 
     }
 

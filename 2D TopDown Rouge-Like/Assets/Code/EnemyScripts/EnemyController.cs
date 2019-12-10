@@ -148,6 +148,8 @@ public class EnemyController : MonoBehaviour
     void Death()
     {
         dead = true;
+        GameController.CurrentRoom.amountOfEnemies--;
+        GameController.CurrentRoomEnemies--;
         Destroy(gameObject);
     }
 

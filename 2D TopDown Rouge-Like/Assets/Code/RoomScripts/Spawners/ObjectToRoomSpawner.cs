@@ -26,6 +26,7 @@ public class ObjectToRoomSpawner : MonoBehaviour
     void SpawnObjects(RandomSpawner data)
     {
         int randomIteration = Random.Range(data.spawnerData.minSpawn, data.spawnerData.maxSpawn + 1);
+        grid.room.amountOfEnemies = randomIteration;
 
         for (var i = 0; i < randomIteration; i++)
         {

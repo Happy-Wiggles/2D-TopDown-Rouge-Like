@@ -152,6 +152,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   portalObject: {fileID: 6628450792222953801, guid: d1ebe0c1e5c8c634c995f6e21a9164bf,
     type: 3}
+  amountRooms: 18
+  density: 3
 --- !u!212 &563387348
 SpriteRenderer:
   m_ObjectHideFlags: 0

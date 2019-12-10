@@ -115,10 +115,6 @@ public class RandomGen : MonoBehaviour
         return generated;
     }
 
-
-
-
-
     bool existsInList(List<RoomInfo>list,int x,int y)
     {
         foreach(RoomInfo room in list)
