@@ -31,57 +31,59 @@ public class EnemyController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameController.Player.gameObject;
         seeingRange = 3;
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        switch (currState)
+        if (player != null)
         {
-            case (EnemyState.Idle):
-                Idle();
-                break;
-            case (EnemyState.Wander):
-                Wander();
-                break;
-            case (EnemyState.Chase):
-                Chase();
-                break;
-            case (EnemyState.Die):
-                Death();
-                break;
-            case (EnemyState.Attack):
-                AttackPlayer();
-                break;
-        }
-
-        if (!playerNotInRoom) //Player is in room
-        {
-            if (isPlayerInRange(seeingRange) && currState != EnemyState.Die)
+            switch (currState)
             {
-                currState = EnemyState.Chase;
-            }
-            else if (!isPlayerInRange(seeingRange) && currState != EnemyState.Die)
-            {
-                currState = EnemyState.Wander;
+                case (EnemyState.Idle):
+                    Idle();
+                    break;
+                case (EnemyState.Wander):
+                    Wander();
+                    break;
+                case (EnemyState.Chase):
+                    Chase();
+                    break;
+                case (EnemyState.Die):
+                    Death();
+                    break;
+                case (EnemyState.Attack):
+                    AttackPlayer();
+                    break;
             }
 
-            if (Vector3.Distance(transform.position, player.transform.position) <= attackRange)
+            if (!playerNotInRoom) //Player is in room
             {
-                currState = EnemyState.Attack;
-            }
+                if (isPlayerInRange(seeingRange) && currState != EnemyState.Die)
+                {
+                    currState = EnemyState.Chase;
+                }
+                else if (!isPlayerInRange(seeingRange) && currState != EnemyState.Die)
+                {
+                    currState = EnemyState.Wander;
+                }
 
-            if (this.health <= 0)
-            {
-                currState = EnemyState.Die;
+                if (Vector3.Distance(transform.position, player.transform.position) <= attackRange)
+                {
+                    currState = EnemyState.Attack;
+                }
+
+                if (this.health <= 0)
+                {
+                    currState = EnemyState.Die;
+                }
             }
-        }
-        else
-        {
-            currState = EnemyState.Idle;
+            else
+            {
+                currState = EnemyState.Idle;
+            }
         }
 
     }
