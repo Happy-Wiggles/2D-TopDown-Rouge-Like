@@ -22,9 +22,11 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        DontDestroyOnLoad(this.gameObject);
         PlayerRigidBody = GetComponent<Rigidbody2D>();
         PlayerRigidBody.freezeRotation = true;
         GameController.Player = this;
+        GameController.newGame();
 
         if (weapon == null)
         {
@@ -33,14 +35,6 @@ public class PlayerController : MonoBehaviour
             weapon.bulletSpeed = 3;
         }
 
-        GameController.Health = 100;
-        GameController.MaxHealth = 100;
-        GameController.MoveSpeed = 8;
-        GameController.CurrentLevel = "Hub";
-        GameController.CurrentX = 0;
-        GameController.CurrentY = 0;
-
-        DontDestroyOnLoad(this.gameObject);
     }
 
     // Update is called once per frame
@@ -98,7 +92,8 @@ public class PlayerController : MonoBehaviour
             {
                 PlayerRigidBody.transform.Find("PopUpE").gameObject.SetActive(false);
                 portalE = false;
-                Level = Level + 1;
+                Level ++;
+                GameController.PointsThisRound++;
                 GameController.CurrentLevel = "" + Level;
                 SceneManager.LoadScene("NewLevel");
                 PlayerRigidBody.position = new Vector3(0, 0);
