@@ -60,8 +60,12 @@ public class GameController : MonoBehaviour
     void FixedUpdate()
     {
         if(Player != null) { 
-            Canvas.healthText.text = $"Health: {health}";
-            Canvas.levelText.text = $"Level: {currentLevel}   Room {CurrentX},{CurrentY}";
+            Canvas.healthText.text = ""+GameController.health+"/"+GameController.maxHealth;
+            Canvas.levelText.text = $"Level: {currentLevel}";
+            
+            Vector3 HealthbarScale = canvas.gameObject.transform.Find("HealthBar/Background/Padding/green").GetComponent<RectTransform>().localScale;
+            HealthbarScale.x = health / maxHealth;
+            canvas.gameObject.transform.Find("HealthBar/Background/Padding/green").GetComponent<RectTransform>().localScale = HealthbarScale;
 
             if (health <= 0)
                 KillPlayer();

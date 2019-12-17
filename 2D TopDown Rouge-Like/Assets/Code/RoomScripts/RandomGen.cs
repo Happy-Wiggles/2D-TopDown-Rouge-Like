@@ -111,7 +111,6 @@ public class RandomGen : MonoBehaviour
                 roomInfo.DoorW = true;
         }
 
-        Debug.Log(generated.Count);
         return generated;
     }
 

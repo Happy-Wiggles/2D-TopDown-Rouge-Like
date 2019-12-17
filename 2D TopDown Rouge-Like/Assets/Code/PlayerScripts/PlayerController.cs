@@ -45,11 +45,14 @@ public class PlayerController : MonoBehaviour
         var shootHorizontal = Input.GetAxis("ShootHorizontal");
         var shootVertical = Input.GetAxis("ShootVertical");
 
+        //Pfeiltasten
         if ((shootHorizontal != 0 || shootVertical != 0) && Time.time > (weapon.lastFire + weapon.fireRate))
         {
             weapon.Shoot(shootHorizontal, shootVertical);
             weapon.lastFire = Time.time;
         }
+
+        //Maus
         if (Input.GetButton("Fire1") && Time.time > (weapon.lastFire + weapon.fireRate))
         {
             var mouseConverted = Camera.main.ScreenToWorldPoint(Input.mousePosition);
