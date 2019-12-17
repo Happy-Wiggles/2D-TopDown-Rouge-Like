@@ -201,6 +201,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1397006069, guid: fe595dcf7b0aaeb49a7f6514e0d99cf6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2650566337427340297, guid: fe595dcf7b0aaeb49a7f6514e0d99cf6,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0.5254902
+      objectReference: {fileID: 0}
+    - target: {fileID: 4142921483044674299, guid: fe595dcf7b0aaeb49a7f6514e0d99cf6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5578022784409179352, guid: fe595dcf7b0aaeb49a7f6514e0d99cf6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -260,6 +274,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Room
+      objectReference: {fileID: 0}
+    - target: {fileID: 6731579831147068461, guid: fe595dcf7b0aaeb49a7f6514e0d99cf6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7928414756406850048, guid: fe595dcf7b0aaeb49a7f6514e0d99cf6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fe595dcf7b0aaeb49a7f6514e0d99cf6, type: 3}

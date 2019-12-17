@@ -35,7 +35,6 @@ public class RoomController : MonoBehaviour
     Queue<RoomInfo> loadRoomQueue = new Queue<RoomInfo>();
     RoomInfo currentLoadRoomInfo = new RoomInfo();
     Room currRoom;
-    public GameObject portalObject;
     public int amountRooms = 10;
     public int density = 2;
     bool portalBool = false;
