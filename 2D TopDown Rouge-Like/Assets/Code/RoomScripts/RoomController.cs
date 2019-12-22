@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class RoomInfo
 {
+    public string ID_Name;
     public string name;
     public int X;
     public int Y;
@@ -16,7 +17,17 @@ public class RoomInfo
     public RoomInfo() { }
     public RoomInfo(string name, int X, int Y, bool DoorN, bool DoorE, bool DoorS, bool DoorW)
     {
-        this.name = name;
+        if (name != "Room")
+        {
+            this.ID_Name = name;
+            this.name = "Room";
+        }
+        else
+        {
+            this.ID_Name = name;
+            this.name = name;
+        }
+
         this.X = X;
         this.Y = Y;
         this.DoorN = DoorN;
@@ -51,7 +62,7 @@ public class RoomController : MonoBehaviour
     {
         RandomGen Roomgeneration = new RandomGen();
         Generated = Roomgeneration.getLevelExtreme(amountRooms, density);
-
+        
         foreach (RoomInfo newRoom in Generated)
         {
             LoadRoom(newRoom);
@@ -79,7 +90,6 @@ public class RoomController : MonoBehaviour
             return;
         }
         loadRoomQueue.Enqueue(roomInfo);
-
     }
 
     void Update()
@@ -105,7 +115,7 @@ public class RoomController : MonoBehaviour
             if (firstTimeLoad)
             {
                 UpdateEnemiesInRoom();
-                firstTimeLoad = !firstTimeLoad;
+                firstTimeLoad = false;
             }
 
             return;
@@ -119,9 +129,9 @@ public class RoomController : MonoBehaviour
     }
     IEnumerator LoadRoomRoutine(RoomInfo roomInfo)
     {
-        string currentRoomName = roomInfo.name;
-
-        AsyncOperation loadRoom = SceneManager.LoadSceneAsync(currentRoomName, LoadSceneMode.Additive);
+        string sceneName = roomInfo.name;
+        
+        AsyncOperation loadRoom = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
 
         while (!loadRoom.isDone)
         {
@@ -138,7 +148,7 @@ public class RoomController : MonoBehaviour
 
         room.X = currentLoadRoomInfo.X;
         room.Y = currentLoadRoomInfo.Y;
-        room.roomName = currentLoadRoomInfo.name;
+        room.roomName = currentLoadRoomInfo.ID_Name;
 
         room.transform.parent = transform;
 
@@ -161,11 +171,13 @@ public class RoomController : MonoBehaviour
 
         isLoadingRoom = false;
 
+        //Set start room
         if (loadedRooms.Count == 0)
         {
             CameraController.instance.currRoom = room;
+            room.roomName = "StartRoom";
         }
-
+        
         loadedRooms.Add(room);
     }
 
@@ -180,14 +192,28 @@ public class RoomController : MonoBehaviour
     {
         foreach (var room in loadedRooms)
         {
-            if (currRoom != room)
+            //Empty the start room
+            if (room.roomName == "StartRoom")
+            {
+                var enemies = room.GetComponentsInChildren<EnemyController>();
+                foreach (var enemy in enemies)
+                {
+                    if(GameController.CurrentRoom.roomName == "StartRoom")
+                    {
+                        GameController.CurrentRoomEnemies--;
+                        Destroy(enemy.gameObject);
+                        room.amountOfEnemies--;
+                    }
+                }
+            }
+            if (room != currRoom) //Player is not in this room
             {
                 EnemyController[] enemies = room.GetComponentsInChildren<EnemyController>();
                 if (enemies != null)
                 {
                     foreach (var enemy in enemies)
                     {
-                        enemy.playerNotInRoom = true;
+                        enemy.playerInRoom = false;
                     }
                 }
             }
@@ -198,7 +224,7 @@ public class RoomController : MonoBehaviour
                 {
                     foreach (var enemy in enemies)
                     {
-                        enemy.playerNotInRoom = false;
+                        enemy.playerInRoom = true;
                     }
                 }
             }

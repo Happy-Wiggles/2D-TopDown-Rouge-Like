@@ -27,8 +27,8 @@ public class ObjectToRoomSpawner : MonoBehaviour
     {
         int randomIteration = Random.Range(data.spawnerData.minSpawn, data.spawnerData.maxSpawn + 1);
         grid.room.amountOfEnemies = randomIteration;
-
-        for (var i = 0; i < randomIteration; i++)
+        
+        for (var i = 0; i < grid.room.amountOfEnemies; i++)
         {
             if (!(grid.availablePoints.Count == 0))
             {
@@ -37,5 +37,6 @@ public class ObjectToRoomSpawner : MonoBehaviour
                 grid.availablePoints.RemoveAt(randomPos);
             }
         }
+        
     }
 }

@@ -28,7 +28,6 @@ public class GridController : MonoBehaviour
         grid.rows = room.Height - 3;
         grid.verticalOffset = 8;
         grid.horizontalOffset = 8;
-
         GenerateGrid();
     }
 

@@ -18,11 +18,12 @@ public class EnemyController : MonoBehaviour
     public float speed = 3f;
     public float health = 100f;
     public float baseDamage = 10f;
-    public float attackRange = 1.5f;
-    public bool playerNotInRoom = true;
+    public float attackRange = 1f;
+    public bool playerInRoom = true;
 
     private float cooldown = 2f;
-    private bool cooldownAttack = false;
+    private bool coolingDown = false;
+    private float lastTimeDamaged;
 
     private bool chooseDirection = false;
     private Vector3 randomDirection;
@@ -30,19 +31,23 @@ public class EnemyController : MonoBehaviour
     private Vector3 currentDirection;
     public GameObject FloatingTextPrefab;
 
-    // Start is called before the first frame update
+
     void Start()
     {
-
         player = GameController.Player.gameObject;
         seeingRange = 3;
         this.gameObject.GetComponent<Rigidbody2D>().freezeRotation = true;
+        lastTimeDamaged = 0.0f;
 
+        if (playerInRoom)
+        {
+            Wander();
+            StartCoroutine(ChooseDirection());
+        }
         StartCoroutine(ChooseDirection());
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         if (player != null)
         {
@@ -65,20 +70,24 @@ public class EnemyController : MonoBehaviour
                     break;
             }
 
-            if (!playerNotInRoom) //Player is in room
+            if (playerInRoom) //Player is in room
             {
-                if (isPlayerInRange(seeingRange) && currState != EnemyState.Die)
+                if (IsPlayerInSeeingRange(seeingRange) && currState != EnemyState.Die)
                 {
                     currState = EnemyState.Chase;
                 }
-                else if (!isPlayerInRange(seeingRange) && currState != EnemyState.Die)
+                else if (!IsPlayerInSeeingRange(seeingRange) && currState != EnemyState.Die)
                 {
                     currState = EnemyState.Wander;
                 }
 
-                if (Vector3.Distance(transform.position, player.transform.position) <= attackRange)
+                if (IsPlayerInAttackRange(attackRange) && currState != EnemyState.Die)
                 {
                     currState = EnemyState.Attack;
+                }
+                else if (!IsPlayerInAttackRange(attackRange) && currState != EnemyState.Die)
+                {
+                    currState = EnemyState.Wander;
                 }
 
                 if (this.health <= 0)
@@ -91,14 +100,19 @@ public class EnemyController : MonoBehaviour
                 currState = EnemyState.Idle;
             }
 
-            Vector3 HealthbarScale=this.gameObject.transform.Find("HealthBar/Background/Padding/green").GetComponent<RectTransform>().localScale;
-            HealthbarScale.x =health/100;
+            //Handle change of healthbar
+            Vector3 HealthbarScale = this.gameObject.transform.Find("HealthBar/Background/Padding/green").GetComponent<RectTransform>().localScale;
+            HealthbarScale.x = health / 100;
             this.gameObject.transform.Find("HealthBar/Background/Padding/green").GetComponent<RectTransform>().localScale = HealthbarScale;
         }
 
     }
 
-    private bool isPlayerInRange(float range)
+    private bool IsPlayerInSeeingRange(float range)
+    {
+        return Vector3.Distance(transform.position, player.transform.position) <= range;
+    }
+    private bool IsPlayerInAttackRange(float range)
     {
         return Vector3.Distance(transform.position, player.transform.position) <= range;
     }
@@ -117,7 +131,7 @@ public class EnemyController : MonoBehaviour
 
         transform.position += currentDirection * speed * Time.deltaTime;
 
-        if (isPlayerInRange(seeingRange))
+        if (IsPlayerInAttackRange(seeingRange))
         {
             currState = EnemyState.Chase;
         }
@@ -132,7 +146,7 @@ public class EnemyController : MonoBehaviour
     {
         if (FloatingTextPrefab)
         {
-            hitText(incomingDamage);
+            HitText(incomingDamage);
         }
 
         if (this.health >= incomingDamage)
@@ -145,30 +159,22 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    public void hitText(float damage)
+    public void HitText(float damage)
     {
         var text = Instantiate(FloatingTextPrefab, transform.position, Quaternion.identity, transform);
-        text.GetComponent<TextMesh>().text = ""+damage;
+        text.GetComponent<TextMesh>().text = "" + damage;
     }
 
     private void AttackPlayer()
     {
-        if (!cooldownAttack)
+        if (Time.time > lastTimeDamaged)
         {
             GameController.DamagePlayer(this.baseDamage);
+            lastTimeDamaged = Time.time + cooldown;
         }
-
-        StartCoroutine(CoolDown());
     }
 
-    private IEnumerator CoolDown()
-    {
-        cooldownAttack = true;
-        yield return new WaitForSeconds(cooldown);
-        cooldownAttack = false;
-    }
-
-    void Death()
+    private void Death()
     {
         GameController.CurrentRoom.amountOfEnemies--;
         GameController.CurrentRoomEnemies--;
@@ -179,10 +185,10 @@ public class EnemyController : MonoBehaviour
     {
         chooseDirection = true;
 
-        yield return new WaitForSeconds(Random.Range(2f, 4f));
+        yield return new WaitForSeconds(Random.Range(1f, 5f));
         int x = Random.Range(1, 100);
         int y = Random.Range(1, 100);
-        float xDir,yDir;
+        float xDir, yDir;
         if (x >= y)
         {
             xDir = (float)x / (float)x;
@@ -209,9 +215,6 @@ public class EnemyController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         currentDirection = -currentDirection;
+
     }
-
-
-    
-
 }

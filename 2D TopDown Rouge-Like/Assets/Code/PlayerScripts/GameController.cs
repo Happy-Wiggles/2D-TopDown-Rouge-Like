@@ -13,10 +13,9 @@ public class GameController : MonoBehaviour
     private static int pointsThisRound = 0;
     private static int pointsInMaxHealth = 0;
 
-
-
     private static float health;
     private static float maxHealth;
+
     private static float moveSpeed;
     private static string currentLevel;
     private static int currentX;
@@ -59,10 +58,11 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(Player != null) { 
-            Canvas.healthText.text = ""+GameController.health+"/"+GameController.maxHealth;
+        if (Player != null)
+        {
+            Canvas.healthText.text = "" + health + "/" + maxHealth;
             Canvas.levelText.text = $"Level: {currentLevel}";
-            
+
             Vector3 HealthbarScale = canvas.gameObject.transform.Find("HealthBar/Background/Padding/green").GetComponent<RectTransform>().localScale;
             HealthbarScale.x = health / maxHealth;
             canvas.gameObject.transform.Find("HealthBar/Background/Padding/green").GetComponent<RectTransform>().localScale = HealthbarScale;
@@ -88,21 +88,20 @@ public class GameController : MonoBehaviour
 
     public static void DamagePlayer(float damage)
     {
-        health -= damage;
+        Health -= damage;
     }
 
     public static void healPlayer(int healthToAdd)
     {
-        health = Mathf.Min(maxHealth, health + healthToAdd);
+        Health = Mathf.Min(maxHealth, health + healthToAdd);
     }
 
     public static void KillPlayer()
     {
-        unspentPoints = unspentPoints + pointsThisRound - 1;
-        SceneManager.LoadScene("Death");
-        Destroy(GameObject.Find("UICanvas"));
-        Destroy(GameObject.Find("Main Camera"));
-        Destroy(GameObject.Find("Player"));
-        
+        //unspentPoints = unspentPoints + pointsThisRound - 1;
+        //SceneManager.LoadScene("Death");
+        //Destroy(GameObject.Find("UICanvas"));
+        //Destroy(GameObject.Find("Main Camera"));
+        //Destroy(GameObject.Find("Player"));
     }
 }
