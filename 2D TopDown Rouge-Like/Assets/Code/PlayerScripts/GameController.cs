@@ -98,10 +98,10 @@ public class GameController : MonoBehaviour
 
     public static void KillPlayer()
     {
-        //unspentPoints = unspentPoints + pointsThisRound - 1;
-        //SceneManager.LoadScene("Death");
-        //Destroy(GameObject.Find("UICanvas"));
-        //Destroy(GameObject.Find("Main Camera"));
-        //Destroy(GameObject.Find("Player"));
+        unspentPoints = unspentPoints + pointsThisRound - 1;
+        SceneManager.LoadScene("Death");
+        Destroy(GameObject.Find("UICanvas"));
+        Destroy(GameObject.Find("Main Camera"));
+        Destroy(GameObject.Find("Player"));
     }
 }
