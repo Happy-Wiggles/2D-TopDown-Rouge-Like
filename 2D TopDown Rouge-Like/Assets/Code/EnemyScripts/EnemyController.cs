@@ -14,7 +14,7 @@ public class EnemyController : MonoBehaviour
 {
     GameObject player;
     public EnemyState currState = EnemyState.Idle;
-    public float seeingRange = 8f;
+    public float seeingRange = 200f;
     public float speed = 3f;
     public float health = 100f;
     public float baseDamage = 10f;
@@ -35,16 +35,13 @@ public class EnemyController : MonoBehaviour
     void Start()
     {
         player = GameController.Player.gameObject;
-        seeingRange = 3;
         this.gameObject.GetComponent<Rigidbody2D>().freezeRotation = true;
         lastTimeDamaged = 0.0f;
 
         if (playerInRoom)
         {
             Wander();
-            StartCoroutine(ChooseDirection());
         }
-        StartCoroutine(ChooseDirection());
     }
 
     private void FixedUpdate()
@@ -72,20 +69,15 @@ public class EnemyController : MonoBehaviour
 
             if (playerInRoom) //Player is in room
             {
-                if (IsPlayerInSeeingRange(seeingRange) && currState != EnemyState.Die)
-                {
-                    currState = EnemyState.Chase;
-                }
-                else if (!IsPlayerInSeeingRange(seeingRange) && currState != EnemyState.Die)
-                {
-                    currState = EnemyState.Wander;
-                }
-
                 if (IsPlayerInAttackRange(attackRange) && currState != EnemyState.Die)
                 {
                     currState = EnemyState.Attack;
                 }
-                else if (!IsPlayerInAttackRange(attackRange) && currState != EnemyState.Die)
+                else if (IsPlayerInSeeingRange(seeingRange) && currState != EnemyState.Die)
+                {
+                    currState = EnemyState.Chase;
+                }
+                else if (!IsPlayerInSeeingRange(seeingRange) && currState != EnemyState.Die)
                 {
                     currState = EnemyState.Wander;
                 }
@@ -110,6 +102,7 @@ public class EnemyController : MonoBehaviour
 
     private bool IsPlayerInSeeingRange(float range)
     {
+        Debug.Log(range+""+ (Vector3.Distance(transform.position, player.transform.position) <= range));
         return Vector3.Distance(transform.position, player.transform.position) <= range;
     }
     private bool IsPlayerInAttackRange(float range)
