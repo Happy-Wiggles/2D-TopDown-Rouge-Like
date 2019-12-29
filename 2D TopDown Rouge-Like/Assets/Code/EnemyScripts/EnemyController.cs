@@ -226,7 +226,7 @@ public class EnemyController : MonoBehaviour
                 this.speed = 0;
     
             this.speed -= decreaseStep;
-            yield return new WaitForSeconds(Random.Range(0.1f, 0.3f));
+            yield return new WaitForSeconds(0.2f);
         }
 
         if (this.speed < minSpeed)
@@ -246,6 +246,7 @@ public class EnemyController : MonoBehaviour
         while (this.speed < maxSpeed)
         {
             this.speed += increaseStep;
+            yield return new WaitForSeconds(0.2f);
         }
 
         if (this.speed - maxSpeed < 1)
