@@ -25,6 +25,9 @@ public class GameController : MonoBehaviour
     private static PlayerController player;
     private static UICanvasController canvas;
 
+    private float vulnerabilityTimer;
+    private float timeUntilVulnerable = 1f;
+
     public static float Health { get => health; set => health = value; }
     public static float MaxHealth { get => maxHealth; set => maxHealth = value; }
     public static float MoveSpeed { get => moveSpeed; set => moveSpeed = value; }
@@ -44,6 +47,10 @@ public class GameController : MonoBehaviour
         if (instance == null)
         {
             instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
         }
         else
         {
@@ -69,12 +76,14 @@ public class GameController : MonoBehaviour
 
             if (health <= 0)
                 KillPlayer();
+            
+            instance.vulnerabilityTimer -= Time.fixedDeltaTime;
 
             maxHealth = 100 * (1 + PointsInMaxHealth * 0.005f);
         }
     }
 
-    public static void newGame()
+    public static void NewGame()
     {
         pointsThisRound = 0;
         maxHealth = 100 * (1 + PointsInMaxHealth * 0.005f);
@@ -88,10 +97,24 @@ public class GameController : MonoBehaviour
 
     public static void DamagePlayer(float damage)
     {
-        Health -= damage;
+        if (instance.PlayerIsVulnerable())
+        {
+            Health -= damage;
+        }
     }
 
-    public static void healPlayer(int healthToAdd)
+    private bool PlayerIsVulnerable()
+    {
+        var time = instance.vulnerabilityTimer;
+        if (time < 0)
+        {
+            instance.vulnerabilityTimer = instance.timeUntilVulnerable;
+            return true;
+        }
+        return false;
+    }
+
+    public static void HealPlayer(int healthToAdd)
     {
         Health = Mathf.Min(maxHealth, health + healthToAdd);
     }

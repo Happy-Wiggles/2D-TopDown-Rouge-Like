@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum EnemyState
@@ -14,26 +15,40 @@ public class EnemyController : MonoBehaviour
 {
     GameObject player;
     public EnemyState currState = EnemyState.Idle;
-    public float seeingRange = 200f;
-    public float speed = 3f;
-    public float health = 100f;
-    public float baseDamage = 10f;
-    public float attackRange = 1f;
     public bool playerInRoom = true;
-
-    private float cooldown = 2f;
-    private bool coolingDown = false;
+    public GameObject FloatingTextPrefab;
     private float lastTimeDamaged;
 
-    private bool chooseDirection = false;
-    private Vector3 randomDirection;
-
+    #region Movement
+    private Transform homePosition;
+    private Transform currentPosition;
     private Vector3 currentDirection;
-    public GameObject FloatingTextPrefab;
+    private Vector3 randomDirection;
+    private List<Vector3> movingField;
 
+    private bool choosingDirection = false;
+    private bool isDoneDecreasingSpeed = false;
+    private bool isDoneIncreasingSpeed = false;
+    private bool isRemainingStill = false;
+    #endregion
+
+    #region Stats
+    public float seeingRange = 200f;
+    public float speed = 1f;
+    public float maxSpeed = 3f;
+    public float health = 100f;
+
+    public float baseDamage = 10f;
+    public float attackRange = 1f;
+    private float attackCooldown = 1f;
+    #endregion
 
     void Start()
     {
+        homePosition = transform;
+        movingField = new List<Vector3>();
+        movingField.Add(homePosition.position);
+       
         player = GameController.Player.gameObject;
         this.gameObject.GetComponent<Rigidbody2D>().freezeRotation = true;
         lastTimeDamaged = 0.0f;
@@ -46,15 +61,28 @@ public class EnemyController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        currentPosition = transform;
+
         if (player != null)
         {
+            //Checks if player is in range and therefore stop being dynamic (Kills the pushing physics)
+            if (Vector3.Distance(player.transform.position, transform.position) <= 1.5f)
+            {
+                transform.gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
+            }
+            else
+            {
+                transform.gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
+            }
+
             switch (currState)
             {
                 case (EnemyState.Idle):
                     Idle();
                     break;
                 case (EnemyState.Wander):
-                    Wander();
+                    if (!isRemainingStill)
+                        Wander();
                     break;
                 case (EnemyState.Chase):
                     Chase();
@@ -100,14 +128,13 @@ public class EnemyController : MonoBehaviour
 
     }
 
-    private bool IsPlayerInSeeingRange(float range)
+    private bool IsPlayerInSeeingRange(float seeingRange)
     {
-        Debug.Log(range+""+ (Vector3.Distance(transform.position, player.transform.position) <= range));
-        return Vector3.Distance(transform.position, player.transform.position) <= range;
+        return Vector3.Distance(transform.position, player.transform.position) <= seeingRange;
     }
-    private bool IsPlayerInAttackRange(float range)
+    private bool IsPlayerInAttackRange(float attackRange)
     {
-        return Vector3.Distance(transform.position, player.transform.position) <= range;
+        return Vector3.Distance(transform.position, player.transform.position) <= attackRange;
     }
 
     void Idle()
@@ -117,21 +144,110 @@ public class EnemyController : MonoBehaviour
 
     void Wander()
     {
-        if (!chooseDirection)
+        //TODO: Maybe create a tiny field in which the enemy is allowed to move in
+        
+        if (!choosingDirection)
         {
             StartCoroutine(ChooseDirection());
         }
-
-        transform.position += currentDirection * speed * Time.deltaTime;
-
-        if (IsPlayerInAttackRange(seeingRange))
+        else
         {
-            currState = EnemyState.Chase;
+            if (isDoneDecreasingSpeed)
+            {
+                StartCoroutine(DecreaseSpeed(Random.Range(maxSpeed / 3, maxSpeed / 2)));
+            }
+        }
+
+        if (isDoneIncreasingSpeed)
+        {
+            StartCoroutine(IncreaseSpeed(Random.Range(maxSpeed / 4, maxSpeed)));
+        }
+
+        var nextPosition = currentDirection * speed * Time.deltaTime;
+        transform.position += nextPosition;   
+    }
+
+    private IEnumerator ChooseDirection()
+    {
+        choosingDirection = true;
+
+        //Let enemy stay still for a random time 0.25s - 1.25s
+        isRemainingStill = true;
+        StopMovement();
+        yield return new WaitForSeconds(Random.Range(0.25f, 1.25f));
+        isRemainingStill = false;
+
+        int x = Random.Range(1, 100);
+        int y = Random.Range(1, 100);
+        float xDir, yDir;
+        if (x >= y)
+        {
+            xDir = x / (float)x;
+            yDir = y / (float)x;
+        }
+        else
+        {
+            xDir = x / (float)y;
+            yDir = y / (float)y;
+        }
+
+        if (Random.Range(0, 2) == 0)
+        {
+            xDir = -xDir;
+        }
+        if (Random.Range(0, 2) == 0)
+        {
+            yDir = -yDir;
+        }
+        currentDirection = new Vector3(xDir, yDir, 0);
+        
+        yield return new WaitForSeconds(Random.Range(1f, 2f));
+
+        choosingDirection = false;
+    }
+
+    private IEnumerator DecreaseSpeed(float decreaseSpeedBy)
+    {
+        bool doFullStop = (maxSpeed - decreaseSpeedBy) <= 0 ? true : false;
+        isDoneDecreasingSpeed = false;
+        var randBreak = Random.Range(1f, 2f);
+        yield return new WaitForSeconds(randBreak);
+        while (speed >= (maxSpeed / 3))
+        {
+            if (doFullStop)
+            {
+                speed = 0;
+            }
+            this.speed -= decreaseSpeedBy;
+        }
+
+        isDoneDecreasingSpeed = true;
+    }
+
+    private IEnumerator IncreaseSpeed(float increaseSpeedUntil)
+    {
+        var increase = increaseSpeedUntil / 6;
+        var randBreak = Random.Range(1f, 2f);
+        yield return new WaitForSeconds(randBreak);
+        while (this.speed <= increaseSpeedUntil)
+        {
+            if ((this.speed + increase) > increaseSpeedUntil)
+            {
+                this.speed = maxSpeed;
+            }
+            this.speed += increase;
         }
     }
 
+    private void StopMovement()
+    {
+        StartCoroutine(DecreaseSpeed(maxSpeed));
+    }
     void Chase()
     {
+        if (speed < maxSpeed)
+            StartCoroutine(IncreaseSpeed(maxSpeed));
+        Debug.Log($"Speed: {speed * Time.deltaTime}");
         transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
     }
 
@@ -163,7 +279,7 @@ public class EnemyController : MonoBehaviour
         if (Time.time > lastTimeDamaged)
         {
             GameController.DamagePlayer(this.baseDamage);
-            lastTimeDamaged = Time.time + cooldown;
+            lastTimeDamaged = Time.time + attackCooldown;
         }
     }
 
@@ -174,40 +290,15 @@ public class EnemyController : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private IEnumerator ChooseDirection()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        chooseDirection = true;
-
-        yield return new WaitForSeconds(Random.Range(1f, 5f));
-        int x = Random.Range(1, 100);
-        int y = Random.Range(1, 100);
-        float xDir, yDir;
-        if (x >= y)
+        if (collision.gameObject.CompareTag("Enemy"))
         {
-            xDir = (float)x / (float)x;
-            yDir = (float)y / (float)x;
+            Wander();
         }
         else
         {
-            xDir = (float)x / (float)y;
-            yDir = (float)y / (float)y;
+            currentDirection = -currentDirection;
         }
-
-        if (Random.Range(0, 2) == 0)
-        {
-            xDir = -xDir;
-        }
-        if (Random.Range(0, 2) == 0)
-        {
-            yDir = -yDir;
-        }
-        currentDirection = new Vector3(xDir, yDir, 0);
-
-        chooseDirection = false;
-    }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        currentDirection = -currentDirection;
-
     }
 }

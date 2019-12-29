@@ -364,6 +364,7 @@ MonoBehaviour:
   animator: {fileID: 6581027517958395027}
   Speed: 8.5
   weapon: {fileID: 6421580369855482687}
+  portalE: 0
 --- !u!95 &6581027517958395027
 Animator:
   serializedVersion: 3

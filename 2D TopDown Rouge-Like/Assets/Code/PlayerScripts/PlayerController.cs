@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
         PlayerRigidBody = GetComponent<Rigidbody2D>();
         PlayerRigidBody.freezeRotation = true;
         GameController.Player = this;
-        GameController.newGame();
+        GameController.NewGame();
 
         if (weapon == null)
         {
@@ -126,7 +126,6 @@ public class PlayerController : MonoBehaviour
         {
             PlayerRigidBody.position = new Vector3(PlayerRigidBody.position.x - 7, PlayerRigidBody.position.y, 0);
         }
-
         if (collision.CompareTag("Portal"))
         {
 
@@ -153,7 +152,6 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.CompareTag("Portal"))
         {
-
             if (portalE)
             {
                 PlayerRigidBody.transform.Find("PopUpE").gameObject.SetActive(false);
@@ -172,4 +170,5 @@ public class PlayerController : MonoBehaviour
             SkillOMatE = false;
         }
     }
+    
 }

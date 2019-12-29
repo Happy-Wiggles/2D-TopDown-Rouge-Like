@@ -174,8 +174,8 @@ public class RoomController : MonoBehaviour
         //Set start room
         if (loadedRooms.Count == 0)
         {
-            CameraController.instance.currRoom = room;
             room.roomName = "StartRoom";
+            CameraController.instance.currRoom = room;
         }
         
         loadedRooms.Add(room);
@@ -198,12 +198,9 @@ public class RoomController : MonoBehaviour
                 var enemies = room.GetComponentsInChildren<EnemyController>();
                 foreach (var enemy in enemies)
                 {
-                    if(GameController.CurrentRoom.roomName == "StartRoom")
-                    {
-                        GameController.CurrentRoomEnemies--;
-                        Destroy(enemy.gameObject);
-                        room.amountOfEnemies--;
-                    }
+                    GameController.CurrentRoomEnemies--;
+                    Destroy(enemy.gameObject);
+                    room.amountOfEnemies--;
                 }
             }
             if (room != currRoom) //Player is not in this room
