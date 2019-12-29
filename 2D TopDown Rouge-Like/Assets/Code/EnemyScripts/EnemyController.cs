@@ -247,7 +247,6 @@ public class EnemyController : MonoBehaviour
     {
         if (speed < maxSpeed)
             StartCoroutine(IncreaseSpeed(maxSpeed));
-        Debug.Log($"Speed: {speed * Time.deltaTime}");
         transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
     }
 
