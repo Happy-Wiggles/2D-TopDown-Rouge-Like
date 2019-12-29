@@ -400,7 +400,7 @@ MonoBehaviour:
     type: 3}
   bulletSpeed: 12
   lastFire: 0
-  fireRate: 0.5
+  fireRate: 0.1
 --- !u!60 &102985353
 PolygonCollider2D:
   m_ObjectHideFlags: 0

@@ -105,8 +105,8 @@ public class GameController : MonoBehaviour
 
     private bool PlayerIsVulnerable()
     {
-        var time = instance.vulnerabilityTimer;
-        if (time < 0)
+        var timer = instance.vulnerabilityTimer;
+        if (timer < 0)
         {
             instance.vulnerabilityTimer = instance.timeUntilVulnerable;
             return true;

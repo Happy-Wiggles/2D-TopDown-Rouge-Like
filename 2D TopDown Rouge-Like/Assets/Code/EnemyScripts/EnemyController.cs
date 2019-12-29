@@ -66,7 +66,7 @@ public class EnemyController : MonoBehaviour
         if (player != null)
         {
             //Checks if player is in range and therefore stop being dynamic (Kills the pushing physics)
-            if (Vector3.Distance(player.transform.position, transform.position) <= 1.5f)
+            if (Vector3.Distance(player.transform.position, transform.position) <= (attackRange + 0.5))
             {
                 transform.gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
             }
@@ -75,6 +75,7 @@ public class EnemyController : MonoBehaviour
                 transform.gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
             }
 
+            //Next move being executed depending on the state
             switch (currState)
             {
                 case (EnemyState.Idle):
@@ -85,7 +86,7 @@ public class EnemyController : MonoBehaviour
                         Wander();
                     break;
                 case (EnemyState.Chase):
-                    Chase();
+                    ChasePlayer();
                     break;
                 case (EnemyState.Die):
                     Death();
@@ -95,7 +96,8 @@ public class EnemyController : MonoBehaviour
                     break;
             }
 
-            if (playerInRoom) //Player is in room
+            //If the Player is in room, the next state of the enemy is being decided
+            if (playerInRoom) 
             {
                 if (IsPlayerInAttackRange(attackRange) && currState != EnemyState.Die)
                 {
@@ -140,6 +142,7 @@ public class EnemyController : MonoBehaviour
     void Idle()
     {
         //Enemy does literally nothing
+        StartCoroutine(DecreaseSpeed(maxSpeed));
     }
 
     void Wander()
@@ -160,11 +163,11 @@ public class EnemyController : MonoBehaviour
 
         if (isDoneIncreasingSpeed)
         {
-            StartCoroutine(IncreaseSpeed(Random.Range(maxSpeed / 4, maxSpeed)));
+            StartCoroutine(IncreaseSpeed(Random.Range(maxSpeed / 3, maxSpeed)));
         }
 
         var nextPosition = currentDirection * speed * Time.deltaTime;
-        transform.position += nextPosition;   
+        transform.position += nextPosition;
     }
 
     private IEnumerator ChooseDirection()
@@ -208,43 +211,57 @@ public class EnemyController : MonoBehaviour
 
     private IEnumerator DecreaseSpeed(float decreaseSpeedBy)
     {
-        bool doFullStop = (maxSpeed - decreaseSpeedBy) <= 0 ? true : false;
+        //Check if speed of 0 is requested:
+        bool doFullStop = (this.maxSpeed - decreaseSpeedBy) <= 0 ? true : false;
+        var minSpeed = this.maxSpeed / 3;
+        var decreaseStep = decreaseSpeedBy / 6;
         isDoneDecreasingSpeed = false;
-        var randBreak = Random.Range(1f, 2f);
+        var randBreak = Random.Range(0.5f, 1f);
         yield return new WaitForSeconds(randBreak);
-        while (speed >= (maxSpeed / 3))
+        
+        //Slowly decrease speed
+        while (this.speed - decreaseSpeedBy > minSpeed)
         {
             if (doFullStop)
-            {
-                speed = 0;
-            }
-            this.speed -= decreaseSpeedBy;
+                this.speed = 0;
+    
+            this.speed -= decreaseStep;
+            yield return new WaitForSeconds(Random.Range(0.1f, 0.3f));
         }
+
+        if (this.speed < minSpeed)
+            this.speed = minSpeed;
 
         isDoneDecreasingSpeed = true;
     }
 
-    private IEnumerator IncreaseSpeed(float increaseSpeedUntil)
+    private IEnumerator IncreaseSpeed(float increaseSpeedBy)
     {
-        var increase = increaseSpeedUntil / 6;
-        var randBreak = Random.Range(1f, 2f);
+        var increaseStep = increaseSpeedBy / 6;
+        var randBreak = Random.Range(0.5f, 1);
+        isDoneIncreasingSpeed = false;
         yield return new WaitForSeconds(randBreak);
-        while (this.speed <= increaseSpeedUntil)
+        
+        //Slowly increase speed 
+        while (this.speed < maxSpeed)
         {
-            if ((this.speed + increase) > increaseSpeedUntil)
-            {
-                this.speed = maxSpeed;
-            }
-            this.speed += increase;
+            this.speed += increaseStep;
         }
+
+        if (this.speed - maxSpeed < 1)
+            this.speed = maxSpeed;
+
+        isDoneIncreasingSpeed = true;
     }
 
     private void StopMovement()
-    {
+    {    
         StartCoroutine(DecreaseSpeed(maxSpeed));
     }
-    void Chase()
+
+    void ChasePlayer()
     {
+        //Make enemy go maxSpeed before starting to chase player
         if (speed < maxSpeed)
             StartCoroutine(IncreaseSpeed(maxSpeed));
         transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
@@ -252,7 +269,7 @@ public class EnemyController : MonoBehaviour
 
     public void ReceiveDamage(float incomingDamage)
     {
-        if (FloatingTextPrefab)
+        if (FloatingTextPrefab && this.health > 0)
         {
             HitText(incomingDamage);
         }
