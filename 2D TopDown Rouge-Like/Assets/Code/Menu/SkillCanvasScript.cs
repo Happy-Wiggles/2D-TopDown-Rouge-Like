@@ -7,11 +7,13 @@ public class SkillCanvasScript : MonoBehaviour
 {
     public TextMeshProUGUI pointsUnspent;
     public TextMeshProUGUI pointsInMaxHealth;
+    public TextMeshProUGUI pointsInDamage;
 
     void FixedUpdate()
     {
         pointsUnspent.text = "" + GameController.UnspentPoints;
         pointsInMaxHealth.text = "" + GameController.PointsInMaxHealth;
+        pointsInDamage.text = "" + GameController.PointsInDamage;
     }
 
     public void addMaxHealth()
@@ -20,6 +22,14 @@ public class SkillCanvasScript : MonoBehaviour
         {
             GameController.UnspentPoints--;
             GameController.PointsInMaxHealth++;
+        }
+    }
+    public void addDamage()
+    {
+        if (GameController.UnspentPoints >= 1)
+        {
+            GameController.UnspentPoints--;
+            GameController.PointsInDamage++;
         }
     }
 

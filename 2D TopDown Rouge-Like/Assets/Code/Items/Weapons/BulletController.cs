@@ -12,7 +12,7 @@ public class BulletController : MonoBehaviour
     void Start()
     {
         StartCoroutine(DeathDelay());
-        //damage = 50;
+        damage = GameController.PlayerDamage;
     }
 
     // Update is called once per frame

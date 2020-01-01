@@ -12,9 +12,11 @@ public class GameController : MonoBehaviour
     private static int unspentPoints = 50;
     private static int pointsThisRound = 0;
     private static int pointsInMaxHealth = 0;
+    private static int pointsInDamage = 0;
 
     private static float health;
     private static float maxHealth;
+    private static float playerDamage;
 
     private static float moveSpeed;
     private static string currentLevel;
@@ -24,6 +26,7 @@ public class GameController : MonoBehaviour
     private static Room currentRoom;
     private static PlayerController player;
     private static UICanvasController canvas;
+    private static WeaponController weapon;
 
     private float vulnerabilityTimer;
     private float timeUntilVulnerable = 1f;
@@ -41,6 +44,9 @@ public class GameController : MonoBehaviour
     public static PlayerController Player { get => player; set => player = value; }
     public static UICanvasController Canvas { get => canvas; set => canvas = value; }
     public static int PointsInMaxHealth { get => pointsInMaxHealth; set => pointsInMaxHealth = value; }
+    public static int PointsInDamage { get => pointsInDamage; set => pointsInDamage = value; }
+    public static WeaponController Weapon { get => weapon; set => weapon = value; }
+    public static float PlayerDamage { get => playerDamage; set => playerDamage = value; }
 
     private void Awake()
     {
@@ -80,6 +86,8 @@ public class GameController : MonoBehaviour
             instance.vulnerabilityTimer -= Time.fixedDeltaTime;
 
             maxHealth = 100 * (1 + PointsInMaxHealth * 0.005f);
+            playerDamage = weapon.weaponBaseDamage * (1 + PointsInDamage * 0.1f);
+            Debug.Log(playerDamage);
         }
     }
 

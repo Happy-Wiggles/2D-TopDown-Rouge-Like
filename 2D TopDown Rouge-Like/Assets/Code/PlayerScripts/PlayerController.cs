@@ -28,12 +28,15 @@ public class PlayerController : MonoBehaviour
         GameController.Player = this;
         GameController.NewGame();
 
-        if (weapon == null)
-        {
-            weapon = new WeaponController();
-            weapon.fireRate = 2;
-            weapon.bulletSpeed = 3;
-        }
+        //if (weapon == null)
+        //{
+        //    weapon = new WeaponController();               <---- geht garnicht, monobehavior kannste nich per new machen
+        //    weapon.fireRate = 2;
+        //    weapon.bulletSpeed = 3;
+        //}
+
+
+        GameController.Weapon = this.weapon;
 
     }
 

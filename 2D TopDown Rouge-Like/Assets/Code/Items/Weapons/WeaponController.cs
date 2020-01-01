@@ -6,11 +6,8 @@ public class WeaponController : MonoBehaviour
 {
 
     public string WeaponKind { get; set; }
-
-    public float Damage { get; set; }
-
     public GameObject BulletPrefab;
-
+    public float weaponBaseDamage = 10;
     public float bulletSpeed = 1;
     public float lastFire;
     public float fireRate;
@@ -18,7 +15,6 @@ public class WeaponController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Damage = 50f;
     }
 
     // Update is called once per frame
