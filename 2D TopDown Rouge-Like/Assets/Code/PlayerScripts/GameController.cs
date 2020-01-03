@@ -87,7 +87,6 @@ public class GameController : MonoBehaviour
 
             maxHealth = 100 * (1 + PointsInMaxHealth * 0.005f);
             playerDamage = weapon.weaponBaseDamage * (1 + PointsInDamage * 0.1f);
-            Debug.Log(playerDamage);
         }
     }
 
