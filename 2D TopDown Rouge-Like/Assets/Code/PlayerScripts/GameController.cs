@@ -133,5 +133,6 @@ public class GameController : MonoBehaviour
         Destroy(GameObject.Find("UICanvas"));
         Destroy(GameObject.Find("Main Camera"));
         Destroy(GameObject.Find("Player"));
+        Destroy(GameObject.Find("EscCanvas"));
     }
 }
