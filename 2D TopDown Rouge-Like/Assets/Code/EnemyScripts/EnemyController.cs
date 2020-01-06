@@ -36,6 +36,7 @@ public class EnemyController : MonoBehaviour
     public float seeingRange = 200f;
     public float speed = 1f;
     public float maxSpeed = 3f;
+    private float minSpeed = 1f;
     public float health = 100f;
 
     public float baseDamage = 10f;
@@ -213,46 +214,45 @@ public class EnemyController : MonoBehaviour
     {
         //Check if speed of 0 is requested:
         bool doFullStop = (this.maxSpeed - decreaseSpeedBy) <= 0 ? true : false;
-        var minSpeed = this.maxSpeed / 3;
         var decreaseStep = decreaseSpeedBy / 6;
-        isDoneDecreasingSpeed = false;
-        var randBreak = Random.Range(0.5f, 1f);
+        this.isDoneDecreasingSpeed = false;
+        var randBreak = Random.Range(0.5f, 2f);
         yield return new WaitForSeconds(randBreak);
         
         //Slowly decrease speed
-        while (this.speed - decreaseSpeedBy > minSpeed)
+        while (this.speed - decreaseSpeedBy > this.minSpeed)
         {
             if (doFullStop)
                 this.speed = 0;
     
             this.speed -= decreaseStep;
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.4f);
         }
 
-        if (this.speed < minSpeed)
-            this.speed = minSpeed;
+        if (this.speed < this.minSpeed)
+            this.speed = this.minSpeed;
 
-        isDoneDecreasingSpeed = true;
+        this.isDoneDecreasingSpeed = true;
     }
 
     private IEnumerator IncreaseSpeed(float increaseSpeedBy)
     {
         var increaseStep = increaseSpeedBy / 6;
-        var randBreak = Random.Range(0.5f, 1);
-        isDoneIncreasingSpeed = false;
-        yield return new WaitForSeconds(randBreak);
+        var randBreak = Random.Range(0.5f, 2);
+        this.isDoneIncreasingSpeed = false;
+        yield return new WaitForSeconds(randBreak); //Wait a bit
         
         //Slowly increase speed 
-        while (this.speed < maxSpeed)
+        while (this.speed < this.maxSpeed)
         {
             this.speed += increaseStep;
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.4f);
         }
 
-        if (this.speed - maxSpeed < 1)
-            this.speed = maxSpeed;
+        if (this.speed - this.maxSpeed < 1)
+            this.speed = this.maxSpeed;
 
-        isDoneIncreasingSpeed = true;
+        this.isDoneIncreasingSpeed = true;
     }
 
     private void StopMovement()
