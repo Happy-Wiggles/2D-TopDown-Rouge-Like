@@ -17,6 +17,7 @@ public class EnemyController : MonoBehaviour
     public EnemyState currState = EnemyState.Idle;
     public bool playerInRoom = true;
     public GameObject FloatingTextPrefab;
+    public GameObject potionPrefab;
     private float lastTimeDamaged;
 
     #region Movement
@@ -304,6 +305,12 @@ public class EnemyController : MonoBehaviour
     {
         GameController.CurrentRoom.amountOfEnemies--;
         GameController.CurrentRoomEnemies--;
+        
+        //Drop HealthPotion or not
+        var dropPotion = Random.Range(0, 6) == 0 ? true : false;
+        if (dropPotion)
+            Instantiate(potionPrefab, transform.position, transform.rotation);
+
         Destroy(gameObject);
     }
 

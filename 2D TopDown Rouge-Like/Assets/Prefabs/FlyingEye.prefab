@@ -271,7 +271,7 @@ GameObject:
   - component: {fileID: 3844275776165951504}
   - component: {fileID: 6697592520902146775}
   m_Layer: 0
-  m_Name: TestEnemy
+  m_Name: FlyingEye
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -393,6 +393,8 @@ MonoBehaviour:
   currState: 1
   playerInRoom: 1
   FloatingTextPrefab: {fileID: 8301897453447285045, guid: d986483b93788774a97745c5e8023db6,
+    type: 3}
+  potionPrefab: {fileID: 739186571741526330, guid: 0a4e118ceaebdbe4d9d658747bbf748b,
     type: 3}
   seeingRange: 5
   speed: 2.5
