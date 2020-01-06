@@ -48,8 +48,8 @@ public class Room : MonoBehaviour
             }
             GameController.CurrentRoom = this;
             GameController.CurrentRoomEnemies = this.amountOfEnemies;
-            GameController.CurrentX = this.X;
-            GameController.CurrentY = this.Y;
+            GameController.CurrentX_PlayerPosition = this.X;
+            GameController.CurrentY_PlayerPosition = this.Y;
             RoomController.instance.OnPlayerEnterRoom(this);
         }
     }

@@ -9,44 +9,61 @@ public class GameController : MonoBehaviour
 {
     static GameController instance;
 
+    #region Points
     private static int unspentPoints = 50;
     private static int pointsThisRound = 0;
     private static int pointsInMaxHealth = 0;
     private static int pointsInDamage = 0;
+    #endregion
 
+    #region PlayerStats
     private static float health;
     private static float maxHealth;
     private static float playerDamage;
-
     private static float moveSpeed;
+    #endregion
+    
+    #region CurrentInfos
     private static string currentLevel;
-    private static int currentX;
-    private static int currentY;
+    private static int currentX_PlayerPosition;
+    private static int currentY_PlayerPosition;
     private static int currentRoomEnemies;
     private static Room currentRoom;
+    #endregion
+
     private static PlayerController player;
     private static UICanvasController canvas;
     private static WeaponController weapon;
+    
+    #region PublicPoints
+    public static int UnspentPoints { get => unspentPoints; set => unspentPoints = value; }
+    public static int PointsThisRound { get => pointsThisRound; set => pointsThisRound = value; }
+    public static int PointsInMaxHealth { get => pointsInMaxHealth; set => pointsInMaxHealth = value; }
+    public static int PointsInDamage { get => pointsInDamage; set => pointsInDamage = value; }
+    #endregion
 
-    private float vulnerabilityTimer;
-    private float timeUntilVulnerable = 1f;
-
+    #region PublicPlayerStats
     public static float Health { get => health; set => health = value; }
     public static float MaxHealth { get => maxHealth; set => maxHealth = value; }
     public static float MoveSpeed { get => moveSpeed; set => moveSpeed = value; }
+    public static float PlayerDamage { get => playerDamage; set => playerDamage = value; }
+    #endregion
+
+    #region PublicCurrentInfos
     public static string CurrentLevel { get => currentLevel; set => currentLevel = value; }
-    public static int UnspentPoints { get => unspentPoints; set => unspentPoints = value; }
-    public static int PointsThisRound { get => pointsThisRound; set => pointsThisRound = value; }
-    public static int CurrentX { get => currentX; set => currentX = value; }
-    public static int CurrentY { get => currentY; set => currentY = value; }
+    public static int CurrentX_PlayerPosition { get => currentX_PlayerPosition; set => currentX_PlayerPosition = value; }
+    public static int CurrentY_PlayerPosition { get => currentY_PlayerPosition; set => currentY_PlayerPosition = value; }
     public static int CurrentRoomEnemies { get => currentRoomEnemies; set => currentRoomEnemies = value; }
     public static Room CurrentRoom { get => currentRoom; set => currentRoom = value; }
+    #endregion
+
     public static PlayerController Player { get => player; set => player = value; }
     public static UICanvasController Canvas { get => canvas; set => canvas = value; }
-    public static int PointsInMaxHealth { get => pointsInMaxHealth; set => pointsInMaxHealth = value; }
-    public static int PointsInDamage { get => pointsInDamage; set => pointsInDamage = value; }
     public static WeaponController Weapon { get => weapon; set => weapon = value; }
-    public static float PlayerDamage { get => playerDamage; set => playerDamage = value; }
+
+    //Other player variables
+    private float vulnerabilityTimer;
+    private float timeUntilVulnerable = 1f;
 
     private void Awake()
     {
@@ -97,8 +114,8 @@ public class GameController : MonoBehaviour
         health = maxHealth;
         moveSpeed = 8;
         CurrentLevel = "Hub";
-        CurrentX = 0;
-        CurrentY = 0;
+        CurrentX_PlayerPosition = 0;
+        CurrentY_PlayerPosition = 0;
         CurrentRoomEnemies = 0;
     }
 

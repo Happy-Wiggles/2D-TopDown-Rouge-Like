@@ -5,7 +5,6 @@ using UnityEngine;
 public class WeaponController : MonoBehaviour
 {
 
-    public string WeaponKind { get; set; }
     public GameObject BulletPrefab;
     public float weaponBaseDamage = 10;
     public float bulletSpeed = 1;
