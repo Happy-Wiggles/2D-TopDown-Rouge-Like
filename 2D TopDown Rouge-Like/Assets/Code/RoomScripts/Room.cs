@@ -8,8 +8,8 @@ public class Room : MonoBehaviour
     public int X;
     public int Y;
 
-    public int Width = 19;
-    public int Height = 19;
+    public int Width = 20;
+    public int Height = 20;
     public int amountOfEnemies = 0;
 
 

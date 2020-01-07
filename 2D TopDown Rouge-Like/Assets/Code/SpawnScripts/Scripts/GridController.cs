@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class GridController : MonoBehaviour
 {
-    public Room room;
 
     [Serializable]
     public struct Grid
@@ -15,17 +14,16 @@ public class GridController : MonoBehaviour
         public float verticalOffset, horizontalOffset;
     }
 
+    public Room room;
     public Grid grid;
-
     public GameObject gridTile;
-
     public List<Vector2> availablePoints = new List<Vector2>();
 
     private void Awake()
     {
         room = GetComponentInParent<Room>();
-        grid.collumns = room.Width - 3;
-        grid.rows = room.Height - 3;
+        grid.collumns = room.Width - 4;
+        grid.rows = room.Height - 4;
         grid.verticalOffset = 8;
         grid.horizontalOffset = 8;
         GenerateGrid();
@@ -46,9 +44,9 @@ public class GridController : MonoBehaviour
                 availablePoints.Add(gridTileGo.transform.position);
             }
         }
-        if (GetComponentInParent<ObjectToRoomSpawner>() != null)
+        if (GetComponentInParent<EnemySpawner>() != null)
         {
-            GetComponentInParent<ObjectToRoomSpawner>().InitializeObjectSpawning();
+            GetComponentInParent<EnemySpawner>().InitializeObjectSpawning();
         }
         else
         {

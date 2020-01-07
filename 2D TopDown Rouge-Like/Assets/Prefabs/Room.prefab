@@ -715,8 +715,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grid: {fileID: 5578022784409179355}
   thingsToSpawn:
-  - name: ChaseEnemies
-    spawnerData: {fileID: 11400000, guid: 3d8b55b9a7817b540a4337071bdf6847, type: 2}
+  - name: FlyingEyes
+    itemToSpawn: {fileID: 3844275776165951511, guid: de60304bd05e33747bc71208cfb4c643,
+      type: 3}
+    minSpawn: 1
+    maxSpawn: 7
 --- !u!114 &5578022784409179355
 MonoBehaviour:
   m_ObjectHideFlags: 0
