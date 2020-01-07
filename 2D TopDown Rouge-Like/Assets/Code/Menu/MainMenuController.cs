@@ -12,6 +12,14 @@ public class MainMenuController : MonoBehaviour
         SceneManager.LoadSceneAsync("Hub", LoadSceneMode.Additive);
     }
 
+    public void Load()
+    {
+        Play();
+        SaveSystem.LoadGame();
+    }
+
+
+
     public void Quit()
     {
         Debug.Log("QUIT!");

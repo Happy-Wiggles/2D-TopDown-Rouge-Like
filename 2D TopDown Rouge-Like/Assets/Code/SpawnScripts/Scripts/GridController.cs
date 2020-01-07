@@ -26,7 +26,6 @@ public class GridController : MonoBehaviour
     public void gridStart()
     {
         room = GetComponentInParent<Room>();
-        Debug.Log(" grid:" + room.roomName);
         if (room.roomName != "StartRoom")
         {
             grid.collumns = room.Width - 4;

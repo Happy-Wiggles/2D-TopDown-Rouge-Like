@@ -40,8 +40,22 @@ public class EscMenuController : MonoBehaviour
         Resume();
         GameController.Health = 0;
     }
+
+    public void Save()
+    {
+        SaveSystem.SaveGame();
+    }
+    
     public void MainMenu()
     {
-
+        if(GameController.PointsThisRound>0)
+            GameController.UnspentPoints = GameController.UnspentPoints + GameController.PointsThisRound - 1;
+        Destroy(GameObject.Find("UICanvas"));
+        Destroy(GameObject.Find("Main Camera"));
+        Destroy(GameObject.Find("Player"));
+        Destroy(GameObject.Find("EscCanvas"));
+        SaveSystem.SaveGame();
+        Destroy(GameObject.Find("GameController"));
+        SceneManager.LoadScene("Menu");
     }
 }
