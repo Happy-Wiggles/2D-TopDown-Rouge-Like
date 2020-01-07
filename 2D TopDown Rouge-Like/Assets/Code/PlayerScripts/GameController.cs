@@ -103,7 +103,9 @@ public class GameController : MonoBehaviour
             instance.vulnerabilityTimer -= Time.fixedDeltaTime;
 
             maxHealth = 100 * (1 + PointsInMaxHealth * 0.005f);
-            playerDamage = weapon.weaponBaseDamage * (1 + PointsInDamage * 0.1f);
+
+            if(weapon!=null)
+                playerDamage = weapon.weaponBaseDamage * (1 + PointsInDamage * 0.1f);
         }
     }
 

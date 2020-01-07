@@ -253,7 +253,6 @@ GameObject:
   - component: {fileID: 6581027517958395028}
   - component: {fileID: 6581027517958395030}
   - component: {fileID: 6581027517958395027}
-  - component: {fileID: 6421580369855482687}
   - component: {fileID: 102985353}
   m_Layer: 0
   m_Name: Player
@@ -363,8 +362,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 6581027517958395027}
   Speed: 8.5
-  weapon: {fileID: 6421580369855482687}
-  portalE: 0
+  weaponStorage: {fileID: 9162020162447088139, guid: e386c93a4bb45e040962b212b3be341a,
+    type: 3}
 --- !u!95 &6581027517958395027
 Animator:
   serializedVersion: 3
@@ -384,24 +383,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &6421580369855482687
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6581027517958395049}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e1ee3b4282122046ba80b38a2253e78, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BulletPrefab: {fileID: 609819287434706814, guid: 671067618448319408eca0a4288800af,
-    type: 3}
-  weaponBaseDamage: 10
-  bulletSpeed: 12
-  lastFire: 0
-  fireRate: 0.1
 --- !u!60 &102985353
 PolygonCollider2D:
   m_ObjectHideFlags: 0

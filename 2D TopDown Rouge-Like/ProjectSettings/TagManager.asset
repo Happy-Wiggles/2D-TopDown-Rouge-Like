@@ -15,6 +15,7 @@ TagManager:
   - DoorN
   - Portal
   - SkillOMat
+  - Gun
   layers:
   - Default
   - TransparentFX

@@ -24,7 +24,7 @@ public class WeaponController : MonoBehaviour
 
     public void Shoot(Vector3 shootingDir)
     {
-        GameObject bullet = Instantiate(BulletPrefab, transform.position, transform.rotation) as GameObject;
+        GameObject bullet = Instantiate(BulletPrefab, GameController.Player.transform.position, GameController.Player.transform.rotation) as GameObject;
         bullet.AddComponent<Rigidbody2D>().gravityScale = 0;
 
         var betragX = shootingDir.x;
@@ -58,7 +58,7 @@ public class WeaponController : MonoBehaviour
 
     public void Shoot(float x, float y)
     {
-        GameObject bullet = Instantiate(BulletPrefab, transform.position, transform.rotation) as GameObject;
+        GameObject bullet = Instantiate(BulletPrefab, GameController.Player.transform.position, GameController.Player.transform.rotation) as GameObject;
         bullet.AddComponent<Rigidbody2D>().gravityScale = 0;
 
         if (x < 0)

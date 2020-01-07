@@ -13,10 +13,14 @@ public class PlayerController : MonoBehaviour
     private bool isMoving = false;
     private bool isMovingRight = false;
     private bool isMovingLeft = false;
-    public WeaponController weapon;
-    public bool portalE = false;
+    public GameObject weaponStorage;
+
+    bool portalE = false;
     bool portalEgrey = false;
     bool SkillOMatE = false;
+    bool gun = false;
+
+
     int Level = 0;
 
     // Start is called before the first frame update
@@ -27,16 +31,7 @@ public class PlayerController : MonoBehaviour
         PlayerRigidBody.freezeRotation = true;
         GameController.Player = this;
         GameController.NewGame();
-
-        //if (weapon == null)
-        //{
-        //    weapon = new WeaponController();               <---- geht garnicht, monobehavior kannste nich per new machen
-        //    weapon.fireRate = 2;
-        //    weapon.bulletSpeed = 3;
-        //}
-
-
-        GameController.Weapon = this.weapon;
+        GameController.Weapon = this.weaponStorage.GetComponent<WeaponController>();
 
     }
 
@@ -49,20 +44,20 @@ public class PlayerController : MonoBehaviour
         var shootVertical = Input.GetAxis("ShootVertical");
 
         //Pfeiltasten
-        if ((shootHorizontal != 0 || shootVertical != 0) && Time.time > (weapon.lastFire + weapon.fireRate))
+        if ((shootHorizontal != 0 || shootVertical != 0) && Time.time > (GameController.Weapon.lastFire + GameController.Weapon.fireRate))
         {
-            weapon.Shoot(shootHorizontal, shootVertical);
-            weapon.lastFire = Time.time;
+            GameController.Weapon.Shoot(shootHorizontal, shootVertical);
+            GameController.Weapon.lastFire = Time.time;
         }
 
         //Maus
-        if (Input.GetButton("Fire1") && Time.time > (weapon.lastFire + weapon.fireRate))
+        if (Input.GetButton("Fire1") && Time.time > (GameController.Weapon.lastFire + GameController.Weapon.fireRate))
         {
             var mouseConverted = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector3 shootingDirection = mouseConverted - PlayerRigidBody.transform.position;
             shootingDirection.z = 0;
-            weapon.Shoot(shootingDirection);
-            weapon.lastFire = Time.time;
+            GameController.Weapon.Shoot(shootingDirection);
+            GameController.Weapon.lastFire = Time.time;
         }
 
         PlayerRigidBody.velocity = new Vector3(horizontal * Speed, vertical * Speed, 0);
@@ -108,6 +103,12 @@ public class PlayerController : MonoBehaviour
             {
                 GameObject.Find("Room").transform.Find("SkillCanvas").gameObject.SetActive(true);
             }
+            if (gun)
+            {
+                GameController.Weapon = this.weaponStorage.GetComponent<WeaponController>();
+                Destroy(this.weaponStorage);
+                gun = false;
+            }
         }
     }
 
@@ -129,6 +130,8 @@ public class PlayerController : MonoBehaviour
         {
             PlayerRigidBody.position = new Vector3(PlayerRigidBody.position.x - 7, PlayerRigidBody.position.y, 0);
         }
+
+
         if (collision.CompareTag("Portal"))
         {
 
@@ -148,6 +151,14 @@ public class PlayerController : MonoBehaviour
         {
             PlayerRigidBody.transform.Find("PopUpE").gameObject.SetActive(true);
             SkillOMatE = true;
+        }
+
+
+        if (collision.CompareTag("Gun"))
+        {
+            PlayerRigidBody.transform.Find("PopUpE").gameObject.SetActive(true);
+            gun = true;
+            weaponStorage = collision.gameObject;
         }
     }
 
@@ -171,6 +182,11 @@ public class PlayerController : MonoBehaviour
         {
             PlayerRigidBody.transform.Find("PopUpE").gameObject.SetActive(false);
             SkillOMatE = false;
+        }
+        if (collision.CompareTag("Gun"))
+        {
+            PlayerRigidBody.transform.Find("PopUpE").gameObject.SetActive(false);
+            gun = false;
         }
     }
     
