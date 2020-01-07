@@ -11,6 +11,7 @@ public class Room : MonoBehaviour
     public int Width = 20;
     public int Height = 20;
     public int amountOfEnemies = 0;
+    public GridController grid;
 
 
     // Start is called before the first frame update
@@ -22,6 +23,7 @@ public class Room : MonoBehaviour
         }
 
         RoomController.instance.RegisterRoom(this);
+        grid.gridStart();
     }
 
     void OnDrawGizmos()

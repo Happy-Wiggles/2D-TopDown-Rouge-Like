@@ -21,8 +21,9 @@ public class GameController : MonoBehaviour
     private static float maxHealth;
     private static float playerDamage;
     private static float moveSpeed;
+    private static float lastFired;
     #endregion
-    
+
     #region CurrentInfos
     private static string currentLevel;
     private static int currentX_PlayerPosition;
@@ -47,6 +48,7 @@ public class GameController : MonoBehaviour
     public static float MaxHealth { get => maxHealth; set => maxHealth = value; }
     public static float MoveSpeed { get => moveSpeed; set => moveSpeed = value; }
     public static float PlayerDamage { get => playerDamage; set => playerDamage = value; }
+    public static float LastFired { get => lastFired; set => lastFired = value; }
     #endregion
 
     #region PublicCurrentInfos
@@ -60,6 +62,7 @@ public class GameController : MonoBehaviour
     public static PlayerController Player { get => player; set => player = value; }
     public static UICanvasController Canvas { get => canvas; set => canvas = value; }
     public static WeaponController Weapon { get => weapon; set => weapon = value; }
+   
 
     //Other player variables
     private float vulnerabilityTimer;

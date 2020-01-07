@@ -31,7 +31,7 @@ public class BulletController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            collision.gameObject.GetComponent<EnemyController>().ReceiveDamage(damage);
+            collision.gameObject.GetComponent<FlyingEyeController>().ReceiveDamage(damage);
             Destroy(gameObject);
         }
         if (collision.gameObject.CompareTag("Wall"))

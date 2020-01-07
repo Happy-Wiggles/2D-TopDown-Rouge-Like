@@ -14,7 +14,6 @@ public class PlayerController : MonoBehaviour
     private bool isMovingRight = false;
     private bool isMovingLeft = false;
     public GameObject weaponStorage;
-
     bool portalE = false;
     bool portalEgrey = false;
     bool SkillOMatE = false;
@@ -38,26 +37,27 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+
         var horizontal = Input.GetAxis("Horizontal");
         var vertical = Input.GetAxis("Vertical");
         var shootHorizontal = Input.GetAxis("ShootHorizontal");
         var shootVertical = Input.GetAxis("ShootVertical");
 
         //Pfeiltasten
-        if ((shootHorizontal != 0 || shootVertical != 0) && Time.time > (GameController.Weapon.lastFire + GameController.Weapon.fireRate))
+        if ((shootHorizontal != 0 || shootVertical != 0) && Time.time > (GameController.LastFired + GameController.Weapon.fireRate))
         {
             GameController.Weapon.Shoot(shootHorizontal, shootVertical);
-            GameController.Weapon.lastFire = Time.time;
+            GameController.LastFired = Time.time;
         }
 
         //Maus
-        if (Input.GetButton("Fire1") && Time.time > (GameController.Weapon.lastFire + GameController.Weapon.fireRate))
+        if (Input.GetButton("Fire1") && Time.time > (GameController.LastFired + GameController.Weapon.fireRate))
         {
             var mouseConverted = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector3 shootingDirection = mouseConverted - PlayerRigidBody.transform.position;
             shootingDirection.z = 0;
             GameController.Weapon.Shoot(shootingDirection);
-            GameController.Weapon.lastFire = Time.time;
+            GameController.LastFired = Time.time;
         }
 
         PlayerRigidBody.velocity = new Vector3(horizontal * Speed, vertical * Speed, 0);

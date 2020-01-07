@@ -114,7 +114,6 @@ public class RoomController : MonoBehaviour
             }
             if (firstTimeLoad)
             {
-                UpdateEnemiesInRoom();
                 firstTimeLoad = false;
             }
 
@@ -185,48 +184,8 @@ public class RoomController : MonoBehaviour
     {
         CameraController.instance.currRoom = room;
         currRoom = room;
-        UpdateEnemiesInRoom();
     }
 
-    private void UpdateEnemiesInRoom()
-    {
-        foreach (var room in loadedRooms)
-        {
-            //Empty the start room
-            if (room.roomName == "StartRoom")
-            {
-                var enemies = room.GetComponentsInChildren<EnemyController>();
-                foreach (var enemy in enemies)
-                {
-                    GameController.CurrentRoomEnemies--;
-                    Destroy(enemy.gameObject);
-                    room.amountOfEnemies--;
-                }
-            }
-            if (room != currRoom) //Player is not in this room
-            {
-                EnemyController[] enemies = room.GetComponentsInChildren<EnemyController>();
-                if (enemies != null)
-                {
-                    foreach (var enemy in enemies)
-                    {
-                        enemy.playerInRoom = false;
-                    }
-                }
-            }
-            else
-            {
-                EnemyController[] enemies = room.GetComponentsInChildren<EnemyController>();
-                if (enemies != null)
-                {
-                    foreach (var enemy in enemies)
-                    {
-                        enemy.playerInRoom = true;
-                    }
-                }
-            }
-        }
-    }
     List<int> findExtremes(List<Room> inList)
     {
         int N = 0;

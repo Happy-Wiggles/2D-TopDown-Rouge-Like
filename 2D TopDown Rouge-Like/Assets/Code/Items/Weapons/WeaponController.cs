@@ -8,7 +8,6 @@ public class WeaponController : MonoBehaviour
     public GameObject BulletPrefab;
     public float weaponBaseDamage = 10;
     public float bulletSpeed = 1;
-    public float lastFire;
     public float fireRate;
 
     // Start is called before the first frame update

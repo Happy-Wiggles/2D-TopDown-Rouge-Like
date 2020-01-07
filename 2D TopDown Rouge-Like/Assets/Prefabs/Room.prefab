@@ -701,6 +701,7 @@ MonoBehaviour:
   Width: 20
   Height: 20
   amountOfEnemies: 0
+  grid: {fileID: 5578022784409179355}
 --- !u!114 &5578022784409179354
 MonoBehaviour:
   m_ObjectHideFlags: 0

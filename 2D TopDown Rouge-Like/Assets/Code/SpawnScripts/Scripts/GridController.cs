@@ -21,12 +21,20 @@ public class GridController : MonoBehaviour
 
     private void Awake()
     {
+        
+    }
+    public void gridStart()
+    {
         room = GetComponentInParent<Room>();
-        grid.collumns = room.Width - 4;
-        grid.rows = room.Height - 4;
-        grid.verticalOffset = 8;
-        grid.horizontalOffset = 8;
-        GenerateGrid();
+        Debug.Log(" grid:" + room.roomName);
+        if (room.roomName != "StartRoom")
+        {
+            grid.collumns = room.Width - 4;
+            grid.rows = room.Height - 4;
+            grid.verticalOffset = 8;
+            grid.horizontalOffset = 8;
+            GenerateGrid();
+        }
     }
 
     public void GenerateGrid()
