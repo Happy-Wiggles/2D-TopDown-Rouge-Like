@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     private bool isMoving = false;
     private bool isMovingRight = false;
     private bool isMovingLeft = false;
+    private bool isMovingUp = false;
+    private bool isMovingDown = false;
     public GameObject weaponStorage;
     bool portalE = false;
     bool portalEgrey = false;
@@ -69,11 +71,29 @@ public class PlayerController : MonoBehaviour
             {
                 isMovingRight = true;
                 isMovingLeft = false;
+                isMovingUp = false;
+                isMovingDown = false;
             }
             if (PlayerRigidBody.velocity.x < 0) //Check if player moving left
             {
                 isMovingRight = false;
                 isMovingLeft = true;
+                isMovingUp = false;
+                isMovingDown = false;
+            }
+            if (PlayerRigidBody.velocity.y < 0) //Check if player moving down
+            {
+                isMovingRight = false;
+                isMovingLeft = false;
+                isMovingUp = false;
+                isMovingDown = true;
+            }
+            if (PlayerRigidBody.velocity.y > 0) //Check if player moving up
+            {
+                isMovingRight = false;
+                isMovingLeft = false;
+                isMovingUp = true;
+                isMovingDown = false;
             }
         }
         else
@@ -81,11 +101,15 @@ public class PlayerController : MonoBehaviour
             isMoving = false;
             isMovingRight = false;
             isMovingLeft = false;
+            isMovingUp = false;
+            isMovingDown = false;
         }
 
         animator.SetBool("IsMoving", isMoving);
         animator.SetBool("IsMovingRight", isMovingRight);
         animator.SetBool("IsMovingLeft", isMovingLeft);
+        animator.SetBool("IsMovingUp", isMovingUp);
+        animator.SetBool("IsMovingDown", isMovingDown);
 
         if (Input.GetKeyDown("e"))
         {
