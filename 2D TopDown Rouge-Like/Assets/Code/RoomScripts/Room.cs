@@ -42,7 +42,6 @@ public class Room : MonoBehaviour
 
         if (collision.CompareTag("Player"))
         {
-            this.transform.Find("FogOfWar").gameObject.SetActive(false);
             this.transform.Find("MinimapRoom").gameObject.SetActive(true);
             if (this.transform.Find("MinimapPortal") != null)
             {
