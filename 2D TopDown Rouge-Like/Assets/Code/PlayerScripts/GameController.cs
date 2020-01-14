@@ -30,6 +30,7 @@ public class GameController : MonoBehaviour
     private static int currentY_PlayerPosition;
     private static int currentRoomEnemies;
     private static Room currentRoom;
+    private static bool anyMenuOpen;
     #endregion
 
     private static PlayerController player;
@@ -57,12 +58,14 @@ public class GameController : MonoBehaviour
     public static int CurrentY_PlayerPosition { get => currentY_PlayerPosition; set => currentY_PlayerPosition = value; }
     public static int CurrentRoomEnemies { get => currentRoomEnemies; set => currentRoomEnemies = value; }
     public static Room CurrentRoom { get => currentRoom; set => currentRoom = value; }
+    public static bool AnyMenuOpen { get => anyMenuOpen; set => anyMenuOpen = value; }
     #endregion
 
     public static PlayerController Player { get => player; set => player = value; }
     public static UICanvasController Canvas { get => canvas; set => canvas = value; }
     public static WeaponController Weapon { get => weapon; set => weapon = value; }
-   
+    
+
 
     //Other player variables
     private float vulnerabilityTimer;
@@ -78,14 +81,11 @@ public class GameController : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        else
-        {
-            Destroy(this);
-        }
+
     }
     private void Start()
     {
-        DontDestroyOnLoad(instance);
+        DontDestroyOnLoad(gameObject);
     }
 
     // Update is called once per frame
@@ -122,6 +122,7 @@ public class GameController : MonoBehaviour
         CurrentX_PlayerPosition = 0;
         CurrentY_PlayerPosition = 0;
         CurrentRoomEnemies = 0;
+        anyMenuOpen = false;
     }
 
     public static void DamagePlayer(float damage)
@@ -150,7 +151,10 @@ public class GameController : MonoBehaviour
 
     public static void KillPlayer()
     {
-        unspentPoints = unspentPoints + pointsThisRound - 1;
+        if (pointsThisRound >= 1)
+        {
+            unspentPoints = unspentPoints + pointsThisRound - 1;
+        }
         SceneManager.LoadScene("Death");
         Destroy(GameObject.Find("UICanvas"));
         Destroy(GameObject.Find("Main Camera"));
@@ -158,4 +162,11 @@ public class GameController : MonoBehaviour
         Destroy(GameObject.Find("EscCanvas"));
         SaveSystem.SaveGame();
     }
+    public static void reset()
+    {
+    unspentPoints = 50;
+    pointsThisRound = 0;
+    pointsInMaxHealth = 0;
+    pointsInDamage = 0;
+}
 }

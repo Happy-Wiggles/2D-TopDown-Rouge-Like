@@ -25,13 +25,18 @@ public class EscMenuController : MonoBehaviour
 
     public void Pause()
     {
-        escMenu.SetActive(true);
-        Time.timeScale = 0f;
-        paused = true;
+        if (!GameController.AnyMenuOpen)
+        {
+            escMenu.SetActive(true);
+            GameController.AnyMenuOpen = true;
+            Time.timeScale = 0f;
+            paused = true;
+        }
     }
     public void Resume()
     {
         escMenu.SetActive(false);
+        GameController.AnyMenuOpen = false;
         Time.timeScale = 1f;
         paused = false;
     }
@@ -50,11 +55,13 @@ public class EscMenuController : MonoBehaviour
     {
         if(GameController.PointsThisRound>0)
             GameController.UnspentPoints = GameController.UnspentPoints + GameController.PointsThisRound - 1;
+
         Destroy(GameObject.Find("UICanvas"));
         Destroy(GameObject.Find("Main Camera"));
         Destroy(GameObject.Find("Player"));
         Destroy(GameObject.Find("EscCanvas"));
         SaveSystem.SaveGame();
+        GameController.reset();
         Destroy(GameObject.Find("GameController"));
         SceneManager.LoadScene("Menu");
     }

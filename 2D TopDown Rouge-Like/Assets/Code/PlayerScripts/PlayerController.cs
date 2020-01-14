@@ -125,7 +125,12 @@ public class PlayerController : MonoBehaviour
             }
             if (SkillOMatE)
             {
-                GameObject.Find("HubRoom").transform.Find("SkillCanvas").gameObject.SetActive(true);
+                if (!GameController.AnyMenuOpen)
+                {
+                    GameObject.Find("HubRoom").transform.Find("SkillCanvas").gameObject.SetActive(true);
+                    GameController.AnyMenuOpen = true;
+                }
+                
             }
             if (gun)
             {

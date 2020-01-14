@@ -37,5 +37,6 @@ public class SkillCanvasScript : MonoBehaviour
     {
         GameController.Health = GameController.MaxHealth;
         this.gameObject.SetActive(false);
+        GameController.AnyMenuOpen = false;
     }
 }
