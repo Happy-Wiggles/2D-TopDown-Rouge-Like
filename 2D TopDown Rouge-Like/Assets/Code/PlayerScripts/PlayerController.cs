@@ -111,7 +111,8 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("IsMovingUp", isMovingUp);
         animator.SetBool("IsMovingDown", isMovingDown);
 
-        if (Input.GetKeyDown("e"))
+        //if (Input.GetKeyDown("e"))
+        if(Input.GetButton("Use"))
         {
             if (portalE)
             {
