@@ -39,7 +39,7 @@ public class FlyingEyeController : MonoBehaviour
     public float speed = 1f;
     public float maxSpeed = 3f;
     private float minSpeed = 1f;
-    public float health = 100f;
+    public float health;
 
     public float baseDamage = 10f;
     public float attackRange = 1f;
@@ -53,8 +53,10 @@ public class FlyingEyeController : MonoBehaviour
         homePosition = transform;
         movingField = new List<Vector3>();
         movingField.Add(homePosition.position);
-       
+        
         player = GameController.Player.gameObject;
+        health = 100f * (Mathf.Pow(1.1f, player.GetComponent<PlayerController>().Level - 1));
+        baseDamage = 10f * (Mathf.Pow(1.1f, player.GetComponent<PlayerController>().Level - 1));
         this.gameObject.GetComponent<Rigidbody2D>().freezeRotation = true;
         lastTimeDamaged = 0.0f;
 

@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     bool gun = false;
 
 
-    int Level = 0;
+    public int Level = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -39,7 +39,6 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-
         var horizontal = Input.GetAxis("Horizontal");
         var vertical = Input.GetAxis("Vertical");
         var shootHorizontal = Input.GetAxis("ShootHorizontal");

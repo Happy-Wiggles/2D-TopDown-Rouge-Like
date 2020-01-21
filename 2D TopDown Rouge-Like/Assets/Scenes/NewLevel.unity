@@ -150,9 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dce426e31a6ac248a9db1b82b57c537, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  portalObject: {fileID: 6628450792222953801, guid: d1ebe0c1e5c8c634c995f6e21a9164bf,
-    type: 3}
-  amountRooms: 18
+  amountRooms: 15
   density: 3
 --- !u!212 &563387348
 SpriteRenderer:
