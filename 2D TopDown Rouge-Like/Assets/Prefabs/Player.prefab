@@ -364,6 +364,15 @@ MonoBehaviour:
   Speed: 8.5
   weaponStorage: {fileID: 9162020162447088139, guid: e386c93a4bb45e040962b212b3be341a,
     type: 3}
+  Level: 0
+  doorN_Opened: {fileID: 21300000, guid: 52d7fd479e0c7b745acdc2323f20f5d7, type: 3}
+  doorN_Closed: {fileID: 21300000, guid: 01164cce024446c4a858c04ff812388e, type: 3}
+  doorS_Opened: {fileID: 21300000, guid: 701a255a71a9e794a8cf8caad3d4cfd2, type: 3}
+  doorS_Closed: {fileID: 21300000, guid: bb9128ec8643d6140a50fff02f91fff5, type: 3}
+  doorE_Opened: {fileID: 21300000, guid: e682d0638fa20354585d081db0899d06, type: 3}
+  doorE_Closed: {fileID: 21300000, guid: c69e37bfbd321724d81a394a1d3622ed, type: 3}
+  doorW_Opened: {fileID: 21300000, guid: 548a875adb2ddfa44b0ad00236441bac, type: 3}
+  doorW_Closed: {fileID: 21300000, guid: 4b104113c36031946a7f6615d688cc0e, type: 3}
 --- !u!95 &6581027517958395027
 Animator:
   serializedVersion: 3

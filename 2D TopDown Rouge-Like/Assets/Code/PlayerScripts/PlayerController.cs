@@ -21,8 +21,22 @@ public class PlayerController : MonoBehaviour
     bool SkillOMatE = false;
     bool gun = false;
 
-
     public int Level = 0;
+
+    public Sprite doorN_Opened;
+    public Sprite doorN_Closed;
+
+    public Sprite doorS_Opened;
+    public Sprite doorS_Closed;
+
+    public Sprite doorE_Opened;
+    public Sprite doorE_Closed;
+
+    public Sprite doorW_Opened;
+    public Sprite doorW_Closed;
+
+    //Door opening
+    private bool isWaiting;
 
     // Start is called before the first frame update
     void Start()
@@ -145,19 +159,23 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.CompareTag("DoorN") && GameController.CurrentRoomEnemies == 0)
         {
-            PlayerRigidBody.position = new Vector3(PlayerRigidBody.position.x, PlayerRigidBody.position.y + 7);
+            StartCoroutine(this.OpeningDoorWaiter(collision, "doorN"));
+            
         }
         if (collision.CompareTag("DoorE") && GameController.CurrentRoomEnemies == 0)
         {
-            PlayerRigidBody.position = new Vector3(PlayerRigidBody.position.x + 7, PlayerRigidBody.position.y, 0);
+            StartCoroutine(this.OpeningDoorWaiter(collision, "doorE"));
+
         }
         if (collision.CompareTag("DoorS") && GameController.CurrentRoomEnemies == 0)
         {
-            PlayerRigidBody.position = new Vector3(PlayerRigidBody.position.x, PlayerRigidBody.position.y - 7);
+            StartCoroutine(this.OpeningDoorWaiter(collision, "doorS"));
+            
         }
         if (collision.CompareTag("DoorW") && GameController.CurrentRoomEnemies == 0)
         {
-            PlayerRigidBody.position = new Vector3(PlayerRigidBody.position.x - 7, PlayerRigidBody.position.y, 0);
+            StartCoroutine(this.OpeningDoorWaiter(collision, "doorW"));
+
         }
 
 
@@ -218,5 +236,38 @@ public class PlayerController : MonoBehaviour
             gun = false;
         }
     }
-    
+
+    IEnumerator OpeningDoorWaiter(Collider2D collision, string doorDirec)
+    {
+        var timeToWait = 0.3f;
+
+        switch (doorDirec)
+        {
+            case ("doorN"):
+                collision.gameObject.GetComponent<SpriteRenderer>().sprite = doorN_Opened;
+                yield return new WaitForSecondsRealtime(timeToWait);
+                PlayerRigidBody.position = new Vector3(PlayerRigidBody.position.x, PlayerRigidBody.position.y + 7);
+                break;
+            case ("doorS"):
+                collision.gameObject.GetComponent<SpriteRenderer>().sprite = doorS_Opened;
+                yield return new WaitForSecondsRealtime(timeToWait);
+                PlayerRigidBody.position = new Vector3(PlayerRigidBody.position.x, PlayerRigidBody.position.y - 7);
+                break;
+            case ("doorE"):
+                collision.gameObject.GetComponent<SpriteRenderer>().sprite = doorE_Opened;
+                yield return new WaitForSecondsRealtime(timeToWait);
+                PlayerRigidBody.position = new Vector3(PlayerRigidBody.position.x + 7, PlayerRigidBody.position.y, 0);
+                break;
+            case ("doorW"):
+                collision.gameObject.GetComponent<SpriteRenderer>().sprite = doorW_Opened;
+                yield return new WaitForSecondsRealtime(timeToWait);
+                PlayerRigidBody.position = new Vector3(PlayerRigidBody.position.x - 7, PlayerRigidBody.position.y, 0);
+                break;
+            default:
+                yield return new WaitForSecondsRealtime(timeToWait);
+                break;
+        }
+
+    }
+
 }
