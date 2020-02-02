@@ -10,7 +10,7 @@ public class GameController : MonoBehaviour
     static GameController instance;
 
     #region Points
-    private static int unspentPoints = 50;
+    private static int unspentPoints = 0;
     private static int pointsThisRound = 0;
     private static int pointsInMaxHealth = 0;
     private static int pointsInDamage = 0;
@@ -36,7 +36,7 @@ public class GameController : MonoBehaviour
     private static PlayerController player;
     private static UICanvasController canvas;
     private static WeaponController weapon;
-    
+
     #region PublicPoints
     public static int UnspentPoints { get => unspentPoints; set => unspentPoints = value; }
     public static int PointsThisRound { get => pointsThisRound; set => pointsThisRound = value; }
@@ -64,7 +64,7 @@ public class GameController : MonoBehaviour
     public static PlayerController Player { get => player; set => player = value; }
     public static UICanvasController Canvas { get => canvas; set => canvas = value; }
     public static WeaponController Weapon { get => weapon; set => weapon = value; }
-    
+
 
 
     //Other player variables
@@ -93,7 +93,7 @@ public class GameController : MonoBehaviour
     {
         if (Player != null)
         {
-            Canvas.healthText.text = "" + health + "/" + maxHealth;
+            Canvas.healthText.text = "" + (int)health + "/" + (int)maxHealth;
             Canvas.levelText.text = $"Level: {currentLevel}";
 
             Vector3 HealthbarScale = canvas.gameObject.transform.Find("HealthBar/Background/Padding/green").GetComponent<RectTransform>().localScale;
@@ -102,12 +102,12 @@ public class GameController : MonoBehaviour
 
             if (health <= 0)
                 KillPlayer();
-            
+
             instance.vulnerabilityTimer -= Time.fixedDeltaTime;
 
             maxHealth = 100 * (1 + PointsInMaxHealth * 0.005f);
 
-            if(weapon!=null)
+            if (weapon != null)
                 playerDamage = weapon.weaponBaseDamage * (1 + PointsInDamage * 0.1f);
         }
     }
@@ -164,9 +164,9 @@ public class GameController : MonoBehaviour
     }
     public static void reset()
     {
-    unspentPoints = 50;
-    pointsThisRound = 0;
-    pointsInMaxHealth = 0;
-    pointsInDamage = 0;
-}
+        unspentPoints = 50;
+        pointsThisRound = 0;
+        pointsInMaxHealth = 0;
+        pointsInDamage = 0;
+    }
 }

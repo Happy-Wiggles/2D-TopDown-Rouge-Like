@@ -26,16 +26,17 @@ public class CameraController : MonoBehaviour
 
     void UpdatePosition()
     {
+
         if (currRoom == null)
         {
             return;
         }
 
         Vector3 targetPos = GetCameraTargetPosition();
-        float diffX=0;
-        float diffY=0;
-        float platzA ;
-        float platzB ;
+        float diffX = 0;
+        float diffY = 0;
+        float platzA;
+        float platzB;
 
         platzA = targetPos.x;
         platzB = transform.position.x;
@@ -47,7 +48,7 @@ public class CameraController : MonoBehaviour
             diffX = platzB - platzA;
         if (platzA >= platzB)
             diffX = platzA - platzB;
-        
+
         platzA = targetPos.y;
         platzB = transform.position.y;
         if (platzA < 0)
@@ -68,7 +69,7 @@ public class CameraController : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * moveSpeedOnRoomChange);
         }
 
-        
+
     }
 
     Vector3 GetCameraTargetPosition()

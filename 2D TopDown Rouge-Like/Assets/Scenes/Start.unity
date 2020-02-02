@@ -285,6 +285,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 948784454, guid: f630392f113f0b5439876ad2f765ae88, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 948784455, guid: f630392f113f0b5439876ad2f765ae88, type: 3}
       propertyPath: m_LocalScale.x
       value: 12
@@ -731,8 +735,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1943793929
+  m_SortingLayer: 1
   m_SortingOrder: 103
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -933,7 +937,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 345.2, y: -60.299988}
+  m_AnchoredPosition: {x: 194, y: -60.299988}
   m_SizeDelta: {x: 1, y: 0.2000122}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &783585803
@@ -1207,8 +1211,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1943793929
+  m_SortingLayer: 1
   m_SortingOrder: 100
   m_Sprite: {fileID: 21300000, guid: 2b8c21a7aba3d8b419faa8ad8f657de0, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 0.50980395}
@@ -1299,8 +1303,8 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 1943793929
+  m_SortingOrder: 100
   m_TargetDisplay: 0
 --- !u!224 &835023280
 RectTransform:
@@ -2361,7 +2365,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -294.8, y: -60.299988}
+  m_AnchoredPosition: {x: -164, y: -60.299988}
   m_SizeDelta: {x: 198.87, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1309857180
@@ -2652,7 +2656,7 @@ GameObject:
   - component: {fileID: 1409251284}
   m_Layer: 5
   m_Name: MinimapWindow
-  m_TagString: Untagged
+  m_TagString: MinimapWindow
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2825,7 +2829,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49c65eb769d749a42aeb3177940a03c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currRoom: {fileID: 0}
+  currPlayerRoom: {fileID: 0}
   moveSpeedOnRoomChange: 50
 --- !u!20 &1523600475
 Camera:
@@ -3021,8 +3025,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1943793929
+  m_SortingLayer: 1
   m_SortingOrder: 102
   m_Sprite: {fileID: 21300000, guid: bee94a149b4d6c14e9b0fef479d40a7d, type: 3}
   m_Color: {r: 0.03779173, g: 1, b: 0, a: 0.50980395}
@@ -3131,7 +3135,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: 0
+  m_SortingLayerID: 1943793929
   m_SortingOrder: 103
   m_TargetDisplay: 0
 --- !u!1 &1716335845
@@ -3727,8 +3731,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1943793929
+  m_SortingLayer: 1
   m_SortingOrder: 101
   m_Sprite: {fileID: 21300000, guid: bee94a149b4d6c14e9b0fef479d40a7d, type: 3}
   m_Color: {r: 1, g: 0.069214076, b: 0, a: 0.50980395}
@@ -3772,7 +3776,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49c65eb769d749a42aeb3177940a03c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currRoom: {fileID: 0}
+  currPlayerRoom: {fileID: 0}
   moveSpeedOnRoomChange: 50
 --- !u!81 &1854004230
 AudioListener:
@@ -3806,10 +3810,10 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 110.3
   field of view: 60
   orthographic: 1
-  orthographic size: 9
+  orthographic size: 9.777504
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

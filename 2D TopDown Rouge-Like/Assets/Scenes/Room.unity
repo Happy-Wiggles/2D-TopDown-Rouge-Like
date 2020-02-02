@@ -189,30 +189,3 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fe595dcf7b0aaeb49a7f6514e0d99cf6, type: 3}
---- !u!1 &5578022784177106390 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5578022784409179359, guid: fe595dcf7b0aaeb49a7f6514e0d99cf6,
-    type: 3}
-  m_PrefabInstance: {fileID: 5578022784177106389}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &5578022784177106391
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5578022784177106390}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 610fe31fea9bc9c49a3af1aa5348c31e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  doorN_Opened: {fileID: 21300000, guid: 52d7fd479e0c7b745acdc2323f20f5d7, type: 3}
-  doorN_Closed: {fileID: 21300000, guid: 01164cce024446c4a858c04ff812388e, type: 3}
-  doorS_Opened: {fileID: 21300000, guid: 701a255a71a9e794a8cf8caad3d4cfd2, type: 3}
-  doorS_Closed: {fileID: 21300000, guid: bb9128ec8643d6140a50fff02f91fff5, type: 3}
-  doorE_Opened: {fileID: 21300000, guid: e682d0638fa20354585d081db0899d06, type: 3}
-  doorE_Closed: {fileID: 21300000, guid: c69e37bfbd321724d81a394a1d3622ed, type: 3}
-  doorW_Opened: {fileID: 21300000, guid: 548a875adb2ddfa44b0ad00236441bac, type: 3}
-  doorW_Closed: {fileID: 21300000, guid: 4b104113c36031946a7f6615d688cc0e, type: 3}
-  room: {fileID: 0}

@@ -27,7 +27,9 @@ public class EnemySpawner : MonoBehaviour
 
     void SpawnObjects(RandomSpawner data)
     {
-        int randomIteration = Random.Range(data.minSpawn, data.maxSpawn + 1);
+        var currLevel = System.Int32.Parse(GameController.CurrentLevel);
+        var changedMaxSpawn = data.maxSpawn + currLevel - 1;
+        int randomIteration = Random.Range(data.minSpawn, changedMaxSpawn + 1);
         grid.room.amountOfEnemies = randomIteration;
         
         for (var i = 0; i < grid.room.amountOfEnemies; i++)

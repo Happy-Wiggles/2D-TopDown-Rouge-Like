@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
 
     public int Level = 0;
 
+    #region Sprites
     public Sprite doorN_Opened;
     public Sprite doorN_Closed;
 
@@ -34,6 +35,7 @@ public class PlayerController : MonoBehaviour
 
     public Sprite doorW_Opened;
     public Sprite doorW_Closed;
+    #endregion
 
     //Door opening
     private bool isWaiting;

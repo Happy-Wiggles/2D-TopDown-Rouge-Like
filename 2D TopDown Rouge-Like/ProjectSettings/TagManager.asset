@@ -16,6 +16,8 @@ TagManager:
   - Portal
   - SkillOMat
   - Gun
+  - HideRoom
+  - MinimapWindow
   layers:
   - Default
   - TransparentFX
@@ -58,4 +60,7 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Highest
+    uniqueID: 1943793929
     locked: 0

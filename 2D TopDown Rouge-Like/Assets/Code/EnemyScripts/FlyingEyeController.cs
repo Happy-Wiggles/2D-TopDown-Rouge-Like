@@ -41,7 +41,7 @@ public class FlyingEyeController : MonoBehaviour
     private float minSpeed = 1f;
     public float health;
 
-    public float baseDamage = 10f;
+    public float maxDamage = 10f;
     public float attackRange = 1f;
     private float attackCooldown = 1f;
     #endregion
@@ -56,7 +56,7 @@ public class FlyingEyeController : MonoBehaviour
         
         player = GameController.Player.gameObject;
         health = 100f * (Mathf.Pow(1.1f, player.GetComponent<PlayerController>().Level - 1));
-        baseDamage = 10f * (Mathf.Pow(1.1f, player.GetComponent<PlayerController>().Level - 1));
+        maxDamage = 10f * (Mathf.Pow(1.1f, player.GetComponent<PlayerController>().Level - 1));
         this.gameObject.GetComponent<Rigidbody2D>().freezeRotation = true;
         lastTimeDamaged = 0.0f;
 
@@ -163,8 +163,6 @@ public class FlyingEyeController : MonoBehaviour
 
     void Wander()
     {
-        //TODO: Maybe create a tiny field in which the enemy is allowed to move in
-        
         if (!choosingDirection)
         {
             StartCoroutine(ChooseDirection());
@@ -310,7 +308,8 @@ public class FlyingEyeController : MonoBehaviour
     {
         if (Time.time > lastTimeDamaged)
         {
-            GameController.DamagePlayer(this.baseDamage);
+            var damage = Random.Range(7f, 11f);
+            GameController.DamagePlayer((int) damage);
             lastTimeDamaged = Time.time + attackCooldown;
         }
     }
