@@ -61,7 +61,7 @@ public class EscMenuController : MonoBehaviour
         Destroy(GameObject.Find("Player"));
         Destroy(GameObject.Find("EscCanvas"));
         SaveSystem.SaveGame();
-        GameController.reset();
+        GameController.ResetPoints();
         Destroy(GameObject.Find("GameController"));
         SceneManager.LoadScene("Menu");
     }

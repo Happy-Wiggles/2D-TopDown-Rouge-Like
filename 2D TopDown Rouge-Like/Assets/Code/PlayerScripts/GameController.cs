@@ -86,6 +86,7 @@ public class GameController : MonoBehaviour
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
+        unspentPoints = 50;
     }
 
     // Update is called once per frame
@@ -93,7 +94,7 @@ public class GameController : MonoBehaviour
     {
         if (Player != null)
         {
-            Canvas.healthText.text = "" + (int)health + "/" + (int)maxHealth;
+            Canvas.healthText.text = "" + System.Math.Round(health, 1) + "/" + System.Math.Round(maxHealth, 1);
             Canvas.levelText.text = $"Level: {currentLevel}";
 
             Vector3 HealthbarScale = canvas.gameObject.transform.Find("HealthBar/Background/Padding/green").GetComponent<RectTransform>().localScale;
@@ -162,7 +163,7 @@ public class GameController : MonoBehaviour
         Destroy(GameObject.Find("EscCanvas"));
         SaveSystem.SaveGame();
     }
-    public static void reset()
+    public static void ResetPoints()
     {
         unspentPoints = 50;
         pointsThisRound = 0;
