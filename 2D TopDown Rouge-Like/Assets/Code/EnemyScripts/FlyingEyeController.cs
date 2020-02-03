@@ -40,6 +40,7 @@ public class FlyingEyeController : MonoBehaviour
     public float maxSpeed = 3f;
     private float minSpeed = 1f;
     public float health;
+    public float maxHealth;
 
     public float maxDamage = 10f;
     public float attackRange = 1f;
@@ -48,16 +49,19 @@ public class FlyingEyeController : MonoBehaviour
 
     void Start()
     {
-        homeRoom = gameObject.GetComponentInParent<Room>();
+        this.gameObject.GetComponent<Rigidbody2D>().freezeRotation = true;
 
+        homeRoom = gameObject.GetComponentInParent<Room>();
         homePosition = transform;
         movingField = new List<Vector3>();
         movingField.Add(homePosition.position);
         
         player = GameController.Player.gameObject;
-        health = 100f * (Mathf.Pow(1.1f, player.GetComponent<PlayerController>().Level - 1));
+        
+        maxHealth = 100f * (Mathf.Pow(1.1f, player.GetComponent<PlayerController>().Level - 1));
+        health = maxHealth;
         maxDamage = 10f * (Mathf.Pow(1.1f, player.GetComponent<PlayerController>().Level - 1));
-        this.gameObject.GetComponent<Rigidbody2D>().freezeRotation = true;
+
         lastTimeDamaged = 0.0f;
 
         if (playerInRoom)
@@ -140,7 +144,7 @@ public class FlyingEyeController : MonoBehaviour
 
             //Handle change of healthbar
             Vector3 HealthbarScale = this.gameObject.transform.Find("HealthBar/Background/Padding/green").GetComponent<RectTransform>().localScale;
-            HealthbarScale.x = health / 100;
+            HealthbarScale.x = health / maxHealth;
             this.gameObject.transform.Find("HealthBar/Background/Padding/green").GetComponent<RectTransform>().localScale = HealthbarScale;
         }
 
@@ -301,14 +305,14 @@ public class FlyingEyeController : MonoBehaviour
     public void HitText(float damage)
     {
         var text = Instantiate(FloatingTextPrefab, transform.position, Quaternion.identity, transform);
-        text.GetComponent<TextMesh>().text = "" + damage;
+        text.GetComponent<TextMesh>().text = "-" + damage;
     }
 
     private void AttackPlayer()
     {
         if (Time.time > lastTimeDamaged)
         {
-            var damage = Random.Range(7f, 11f);
+            var damage = Random.Range(7f, 10f);
             GameController.DamagePlayer((int) damage);
             lastTimeDamaged = Time.time + attackCooldown;
         }
